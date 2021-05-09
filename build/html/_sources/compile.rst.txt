@@ -4,6 +4,13 @@
 CP2K
 #####
 
+基于Openmpi与IntelMKL编译CP2K.8.1版本
+
+.. toctree::
+    :maxdepth: 2
+
+    ./compile/CP2K
+
 ABINIT-9.4.1
 ############
 
