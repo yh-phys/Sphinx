@@ -1,10 +1,10 @@
-软件编译
-========
+Installation
+============
 
 CP2K
-#####
+####
 
-基于Openmpi与IntelMKL编译CP2K.8.1版本
+Compile CP2K.8.1 with Openmpi and IntelMKL libraries.
 
 .. toctree::
     :maxdepth: 2

@@ -1,13 +1,13 @@
 
 
 <!DOCTYPE html>
-<html class="writer-html5" lang="zh-CN" >
+<html class="writer-html5" lang="en" >
 <head>
   <meta charset="utf-8" />
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   
-  <title>Download and Install &mdash; Blog 1.00 文档</title>
+  <title>Download and Install &mdash; Blog 1.00 documentation</title>
   
 
   
@@ -32,15 +32,14 @@
         <script src="../_static/jquery.js"></script>
         <script src="../_static/underscore.js"></script>
         <script src="../_static/doctools.js"></script>
-        <script src="../_static/translations.js"></script>
     
     <script type="text/javascript" src="../_static/js/theme.js"></script>
 
     
-    <link rel="index" title="索引" href="../genindex.html" />
-    <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="计算教程" href="../tutorial.html" />
-    <link rel="prev" title="软件编译" href="../compile.html" /> 
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Tutorials" href="../tutorial.html" />
+    <link rel="prev" title="Installation" href="../compile.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -85,10 +84,10 @@
               
             
             
-              <p class="caption"><span class="caption-text">目录</span></p>
+              <p class="caption"><span class="caption-text">Contents</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../welcome.html">About Me</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="../compile.html">软件编译</a><ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../compile.html">Installation</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../compile.html#cp2k">CP2K</a><ul class="current">
 <li class="toctree-l3 current"><a class="current reference internal" href="#">Download and Install</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#compatibility-of-cp2k">Compatibility of CP2K</a></li>
@@ -101,7 +100,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#quantum-espresso-6-7">Quantum-ESPRESSO-6.7</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">计算教程</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
 </ul>
 
             
@@ -150,7 +149,7 @@
     
       <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
         
-          <li><a href="../compile.html">软件编译</a> &raquo;</li>
+          <li><a href="../compile.html">Installation</a> &raquo;</li>
         
       <li>Download and Install</li>
     
@@ -172,24 +171,66 @@
            <div itemprop="articleBody">
             
   <div class="section" id="download-and-install">
-<h1>Download and Install<a class="headerlink" href="#download-and-install" title="永久链接至标题">¶</a></h1>
+<h1>Download and Install<a class="headerlink" href="#download-and-install" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="compatibility-of-cp2k">
-<h2>Compatibility of CP2K<a class="headerlink" href="#compatibility-of-cp2k" title="永久链接至标题">¶</a></h2>
-<p>CP2K is tested and should work on the following compilers and libraries:
-* gcc-9.3.0 or gcc-10.2.0
-* Openmpi-4.0.5
-* Intel-19.1.3 or Intel-2021.1
-* HDF5-1.12.0
-* libxc-4.3.4
-* cmake-3.18.5
-* fftw-3.3.8</p>
+<h2>Compatibility of CP2K<a class="headerlink" href="#compatibility-of-cp2k" title="Permalink to this headline">¶</a></h2>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>CP2K is tested and should work on the following compilers and libraries</p>
+<ul class="simple">
+<li><p>gcc-9.3.0 or gcc-10.2.0</p></li>
+<li><p>Openmpi-4.0.5</p></li>
+<li><p>Intel-19.1.3 or Intel-2021.1</p></li>
+<li><p>HDF5-1.12.0</p></li>
+<li><p>libxc-4.3.4</p></li>
+<li><p>cmake-3.18.5</p></li>
+<li><p>fftw-3.3.8</p></li>
+</ul>
+</div>
 </div>
 <div class="section" id="to-install-cp2k-8-1">
-<h2>To install CP2K-8.1<a class="headerlink" href="#to-install-cp2k-8-1" title="永久链接至标题">¶</a></h2>
+<h2>To install CP2K-8.1<a class="headerlink" href="#to-install-cp2k-8-1" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>Download <a class="reference download external" download="" href="https://github.com/cp2k/cp2k/releases/download/v8.1.0/cp2k-8.1.tar.bz2"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">8.1</span></code></a> of CP2K.</p></li>
 </ol>
-<p><code class="docutils literal notranslate"><span class="pre">wget</span> <span class="pre">https://github.com/cp2k/cp2k/releases/download/v8.1.0/cp2k-8.1.tar.bz2</span></code></p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/cp2k/cp2k/releases/download/v8.1.0/cp2k-8.1.tar.bz2
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>One should also download the recommended versions of 3rd party software</p>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>Unpack CP2K</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>tar jxvf cp2k-8.1.tar.bz2
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Download <a class="reference download external" download="" href="https://www.cp2k.org/static/downloads/"><code class="xref download docutils literal notranslate"><span class="pre">3rd</span> <span class="pre">party</span> <span class="pre">software</span></code></a> under recommended versions of CP2K_8.1</p></li>
+<li><p>Move the 3rd party software to the build direction</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>mv * cp2k-8.1/tools/toolchain/build
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>configure CP2K. This can be done by copy/pasting the following lines:</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>./install_cp2k_toolchain.sh <span class="se">\</span>
+    --math-mode<span class="o">=</span>mkl <span class="se">\</span>
+    --with-openmpi<span class="o">=</span>install <span class="se">\</span>
+    --mpi-mode<span class="o">=</span>openmpi <span class="se">\</span>
+    --with-scalapack<span class="o">=</span>no <span class="se">\</span>
+    --with-ptscotch<span class="o">=</span>install <span class="se">\</span>
+    --with-superlu<span class="o">=</span>install <span class="se">\</span>
+    --with-pexsi<span class="o">=</span>install <span class="se">\</span>
+    --with-quip<span class="o">=</span>install <span class="se">\</span>
+    --with-plumed<span class="o">=</span>install
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li></li>
+</ol>
 </div>
 </div>
 
@@ -199,15 +240,15 @@
           </div>
           <footer>
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="../tutorial.html" class="btn btn-neutral float-right" title="计算教程" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="../compile.html" class="btn btn-neutral float-left" title="软件编译" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../tutorial.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../compile.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
     <p>
-        &#169; 版权所有 2021, Hey.
+        &#169; Copyright 2021, Hey.
 
     </p>
   </div>

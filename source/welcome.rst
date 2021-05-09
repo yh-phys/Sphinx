@@ -1,12 +1,12 @@
-About Me
+Overview
 ========
 
-本博客会陆续更新第一性原理计算软件编译教程和使用说明！
+This Blog aims at providing some useful installation tips and first-principles calculations details.
 
 | About Me
-| 贺 勇 （Yong He）
+| Yong He
 | Ph. D Student.
 | Department of Physics, Peking University
 | Beijing 100871, China.
 | E-mail：hey@stu.pku.edu.cn
-| Scholar Page: http://scholar.pku.edu.cn/yong_phys |
+| Scholar Page: http://scholar.pku.edu.cn/yong_phys

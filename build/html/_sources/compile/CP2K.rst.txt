@@ -4,18 +4,54 @@ Download and Install
 Compatibility of CP2K
 #####################
 
-CP2K is tested and should work on the following compilers and libraries:
-* gcc-9.3.0 or gcc-10.2.0
-* Openmpi-4.0.5
-* Intel-19.1.3 or Intel-2021.1
-* HDF5-1.12.0
-* libxc-4.3.4
-* cmake-3.18.5
-* fftw-3.3.8
+.. important :: CP2K is tested and should work on the following compilers and libraries
+
+ * gcc-9.3.0 or gcc-10.2.0
+ * Openmpi-4.0.5
+ * Intel-19.1.3 or Intel-2021.1
+ * HDF5-1.12.0
+ * libxc-4.3.4
+ * cmake-3.18.5
+ * fftw-3.3.8
 
 To install CP2K-8.1
 ###################
 
 1. Download :download:`version 8.1 <https://github.com/cp2k/cp2k/releases/download/v8.1.0/cp2k-8.1.tar.bz2>` of CP2K.
 
-``wget https://github.com/cp2k/cp2k/releases/download/v8.1.0/cp2k-8.1.tar.bz2``
+.. code-block:: Bash
+
+    wget https://github.com/cp2k/cp2k/releases/download/v8.1.0/cp2k-8.1.tar.bz2
+
+.. tip ::
+    One should also download the recommended versions of 3rd party software
+
+2. Unpack CP2K
+
+.. code-block:: Bash
+
+    tar jxvf cp2k-8.1.tar.bz2
+
+3. Download :download:`3rd party software <https://www.cp2k.org/static/downloads/>` under recommended versions of CP2K_8.1
+4. Move the 3rd party software to the build direction
+
+.. code-block:: Bash
+
+    mv * cp2k-8.1/tools/toolchain/build
+
+5. configure CP2K. This can be done by copy/pasting the following lines:
+
+.. code-block:: Bash
+
+    ./install_cp2k_toolchain.sh \
+        --math-mode=mkl \
+        --with-openmpi=install \
+        --mpi-mode=openmpi \
+        --with-scalapack=no \
+        --with-ptscotch=install \
+        --with-superlu=install \
+        --with-pexsi=install \
+        --with-quip=install \
+        --with-plumed=install
+
+6.        

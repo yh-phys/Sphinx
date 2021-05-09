@@ -8,7 +8,7 @@ Condensed Matter Physics
 
 .. toctree::
    :maxdepth: 2
-   :caption: 目录
+   :caption: Contents
 
    welcome
    compile
