@@ -1,18 +1,13 @@
 Installation
 ============
 
-CP2K
-####
+ABINIT
+######
 
-Compile CP2K.8.1 with Openmpi and IntelMKL libraries.
+Compile abinit-9.4.2 with Intel Parallel Studio Xe 2020_update4
 
 .. toctree::
     :maxdepth: 2
 
-    ./compile/CP2K
+    ./compile/abinit_9.4.2
 
-ABINIT-9.4.1
-############
-
-Quantum-ESPRESSO-6.7
-####################
