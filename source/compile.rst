@@ -11,3 +11,14 @@ Compile abinit-9.4.2 with Intel Parallel Studio Xe 2020_update4
 
     ./compile/abinit_9.4.2
 
+Yambo
+#####
+
+Compile Yambo-5.0.2 with Intel Parallel Studio Xe 2020_update4
+
+.. toctree::
+    :maxdepth: 2
+
+    ./compile/yambo_5.0.2
+
+
