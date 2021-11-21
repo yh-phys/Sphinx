@@ -30,7 +30,7 @@ Compile
 
     bash compile.sh
 
-3. compile and test yambo
+3. compile and test libxc
 
 .. code-block:: Bash
 

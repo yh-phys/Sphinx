@@ -109,4 +109,3 @@ Compile abinit
 The test results are as follows.
 
 .. image:: ../fig_compile/abinit_test_v1.png
-

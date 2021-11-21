@@ -18,7 +18,7 @@ Compile
 .. code-block:: Bash
 
     ./configure CC=icc \
-        --prefix=/opt/software/libbeef/build \
+        --prefix=/opt/software/libbeef/build
 
 2. configure libbeef
 
