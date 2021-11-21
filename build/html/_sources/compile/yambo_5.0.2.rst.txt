@@ -20,8 +20,8 @@ Download
 .. important ::
     The yambo-libraries-0.0.2.tar.gz package should also be download
 
-(a) 1. Download :download:`version 0.0.2 <https://codeload.github.com/yambo-code/yambo-libraries/tar.gz/0.0.2>`
-(b) Unpack and move the files to yambo code
+* Download :download:`version 0.0.2 <https://codeload.github.com/yambo-code/yambo-libraries/tar.gz/0.0.2>`
+* Unpack and move the files to yambo code
 
 .. code-block:: Bash
 
@@ -30,6 +30,8 @@ Download
 
 Compile
 #######
+
+* Before compile the yambo, one should compile the :doc:`hdf5_1.12.0 <hdf5_1.12.0>` code
 
 1. Create configure file compile.sh
 
@@ -44,7 +46,12 @@ Compile
     --with-fft-includedir=/opt/intel/compilers_and_libraries_2020.4.304/linux/mkl/include/fftw \
     --with-fft-libs="-lmkl_intel_lp64 -lmkl_intel_thread -lmkl_core -liomp5 -lpthread -lm" \
     --with-blacs-libs="-lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_core -liomp5 -lpthread -lm" \
-    --with-scalapack-libs="-lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_core -liomp5 -lpthread -lm"
+    --with-scalapack-libs="-lmkl_scalapack_lp64 -lmkl_blacs_intelmpi_lp64 -lmkl_core -liomp5 -lpthread -lm" \
+    --with-hdf5-libs=/opt/software/HDF5_intelmpi/hdf5-1.12.0/hdf5/lib/libhdf5.a \
+    --with-hdf5-path=/opt/software/HDF5_intelmpi/hdf5-1.12.0/hdf5 \
+    --with-hdf5-libdir=/opt/software/HDF5_intelmpi/hdf5-1.12.0/hdf5/lib \
+    --with-hdf5-includedir=-I/opt/software/HDF5_intelmpi/hdf5-1.12.0/hdf5/include \
+    
 
 2. configure yambo
 

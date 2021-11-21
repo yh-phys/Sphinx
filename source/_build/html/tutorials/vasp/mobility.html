@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>前言 &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="Basic Module" href="../pymatgen/basic.html" />
+    <link rel="prev" title="Tutorials" href="../../tutorial.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Physics
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../welcome.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compile.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../tutorial.html">Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../../tutorial.html#vasp">VASP</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">前言</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">理论基础</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id3">计算与数据处理工具</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#inse">二维InSe有效质量计算过程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id5">建模</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">能带计算</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#quantum-espresso">Quantum-ESPRESSO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#epw">EPW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#pymatgen">pymatgen</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../tutorial.html">Tutorials</a> &raquo;</li>
+      <li>前言</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/tutorials/vasp/mobility.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>前言<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+<p>载流子迁移率通常指半导体内部电子和空穴整体的运动快慢情况，是衡量半导体器件性能的重要物理量。2004年，石墨烯的成功剥离引起了研究人员对于二维材料性质探索的浓厚兴趣。石墨烯、黑磷等二维材料展现出的高载流子迁移率是其中的一个重要研究课题，科研人员在理论计算方面已经做了大量的工作。由于电子在运动过程中不仅受到外电场力的作用，还会不断的与晶格、杂质、缺陷等发生无规则的碰撞，大大增加了理论计算的难度。</p>
+<p>目前计算载流子迁移率比较常用的理论是形变势理论和玻尔兹曼输运理论，前者没有考虑电子和声子（晶格振动）以及电子与电子之间的相互作用等因素，计算结果存在一定的误差，但笔者的计算结果与实验值在数量级上是吻合的；玻尔兹曼输运理论的一种计算考虑了电子-声子的相互作用，基于第一性原理计算和最大局域化wannier函数插值方法，借助于 <a class="reference external" href="http://www.quantum-espresso.org/">Quantum-ESPRESSO</a> 和 <a class="reference external" href="https://epw-code.org/">EPW</a> 软件可以完成载流子迁移率计算。缺点是计算量太大，一般的课题组很难承受起高昂的计算费用，另外EPW软件对于二维材料的计算存在部分问题，在其官方论坛也有讨论，计算过程在后续文章中会提到。</p>
+<p>本文以形变势理论方法为基础，详细介绍了二维InSe的电子和空穴的有效质量与载流子迁移率的计算方法。</p>
+</section>
+<section id="id2">
+<h1>理论基础<a class="headerlink" href="#id2" title="永久链接至标题"></a></h1>
+<p>基于 <a class="reference external" href="https://doi.org/10.1103/PhysRev.80.72">Bardeen and Shockley</a> 提出的形变势理论，二维材料载流子迁移率可以根据下式计算：</p>
+<div class="math notranslate nohighlight">
+\[\mu_{\rm 2D} = \frac{e\hbar^3C_{2D}}{k_BTm^{\ast}m_dE_1^2}\]</div>
+<p>其中， <span class="math notranslate nohighlight">\(m^{\ast}\)</span> 是传输方向上的有效质量， <span class="math notranslate nohighlight">\(T\)</span> 是温度， <span class="math notranslate nohighlight">\(k_B\)</span> 是玻尔兹曼常数 <span class="math notranslate nohighlight">\(E_1\)</span> 表示沿着传输方向上位于价带顶（VBM）的空穴或聚于导带底（CBM）的电子的形变势常数，由公式 <span class="math notranslate nohighlight">\(E_1 = {\Delta}E/({\Delta}l/l_o)\)</span> 确定， <span class="math notranslate nohighlight">\({\Delta}E\)</span> 为在压缩或拉伸应变下CBM或VBM 的能量变化， <span class="math notranslate nohighlight">\(l_0\)</span> 是传输方向上的晶格常数， <span class="math notranslate nohighlight">\({\Delta}l\)</span> 是 <span class="math notranslate nohighlight">\(l_0\)</span> 的变形量。 <span class="math notranslate nohighlight">\(m_d\)</span> 是载流子的平均有效质量，由公式 <span class="math notranslate nohighlight">\(m_d = \sqrt{m_x^{\ast}m_y^{\ast}}\)</span> 定义。 <span class="math notranslate nohighlight">\(C_{2D}\)</span> 是均匀变形晶体的弹性模量，对于2D材料，弹性模量可以通过公式 <span class="math notranslate nohighlight">\(C_{2D}=2[{\partial}^2E/{\partial}({\Delta}l/l_0)^2]/S_0\)</span> 来计算，其中 <span class="math notranslate nohighlight">\(E\)</span> 是总能量， <span class="math notranslate nohighlight">\(S_0\)</span> 是优化后的面积。</p>
+<p>下面对公式中的单位（量纲）做一个简单换算，具体如下：</p>
+<div class="line-block">
+<div class="line"><span class="math notranslate nohighlight">\(m_d = \sqrt{m_x^{\ast}m_y^{\ast}}\)</span> (Kg)</div>
+<div class="line"><span class="math notranslate nohighlight">\(E_1 = {\Delta}E/({\Delta}l/l_o)\)</span> (J) 在VASP中 <span class="math notranslate nohighlight">\({\Delta}E\)</span> 的单位是eV，1 eV = 1.6 <span class="math notranslate nohighlight">\(\times\)</span> 10 <span class="math notranslate nohighlight">\(^{-19}\)</span> J</div>
+<div class="line"><span class="math notranslate nohighlight">\(C_{2D} = 2[{\partial}^2E/{\partial}({\Delta}l/l_0)^2]/S_0\)</span> (J/m <span class="math notranslate nohighlight">\(^2\)</span> ) 其中 <span class="math notranslate nohighlight">\(E\)</span> 是总能（eV）， <span class="math notranslate nohighlight">\(S_0\)</span> 表示面积（ <span class="math notranslate nohighlight">\(Å^2\)</span> ）</div>
+<div class="line"><span class="math notranslate nohighlight">\(e\)</span> : <span class="math notranslate nohighlight">\(1.6 \times 10^{-19}\)</span> C</div>
+<div class="line"><span class="math notranslate nohighlight">\(h\)</span> : <span class="math notranslate nohighlight">\(6.626 \times 10^{-34}\)</span> <span class="math notranslate nohighlight">\(J \cdot s\)</span></div>
+<div class="line"><span class="math notranslate nohighlight">\(k_B\)</span> : <span class="math notranslate nohighlight">\(1.38 \times 10^{-23}\)</span> J/K</div>
+<div class="line"><span class="math notranslate nohighlight">\(m^{\ast}\)</span> : Kg</div>
+</div>
+<p>换算过程：</p>
+<div class="math notranslate nohighlight">
+\[C \cdot J^3 \cdot s^3 \cdot \frac{J}{m^2} = \frac{C \cdot J \cdot s^3}{m^2 \cdot Kg^2}
+= \frac{C \cdot J}{\frac{m^2 \cdot Kg^2}{s^3} \cdot \frac{s}{s} \cdot \frac{m^2}{m^2}}
+= \frac{C \cdot J}{\frac{s}{m^2} \frac{m^4 \cdot Kg^2}{s^4}}
+= \frac{m^2}{s} \cdot \frac{C}{J} = m^2 \cdot s^{-1} \cdot V^{-1}\]</div>
+<div class="math notranslate nohighlight">
+\[= 10^4 \times cm^2 \cdot s^{-1} \cdot V^{-1}\]</div>
+<p>其中： <span class="math notranslate nohighlight">\(1 V = 1 J/C\)</span> ， <span class="math notranslate nohighlight">\(1 J = 1Kg \cdot m^2 / s^2\)</span></p>
+</section>
+<section id="id3">
+<h1>计算与数据处理工具<a class="headerlink" href="#id3" title="永久链接至标题"></a></h1>
+<div class="line-block">
+<div class="line">VASP.5.4.4软件 (可以手动控制优化晶格方向)</div>
+<div class="line">OriginLab软件</div>
+<div class="line">Excel</div>
+<div class="line">Materials Studio软件</div>
+<div class="line">正格矢到倒格矢转化脚本，来源于 <a class="reference external" href="http://muchong.com/bbs/viewthread.php?tid=7149817&amp;fpage=1">小木虫</a></div>
+</div>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="ch">#! /usr/bin/python</span>
+<span class="c1"># This program reads in base vectors from a given file, calculates reciprocal vectors</span>
+<span class="c1"># then writes to outfile in different units</span>
+<span class="c1"># LinuxUsage: crecip.py infile outfile</span>
+<span class="c1"># Note:  the infile must be in the form below:</span>
+<span class="c1">#   inunit  ang/bohr</span>
+<span class="c1">#   _begin_vectors</span>
+<span class="c1">#     46.300000000   0.000000000   0.000000000</span>
+<span class="c1">#      0.000000000  40.500000000   0.000000000</span>
+<span class="c1">#      0.000000000   0.000000000  10.000000000</span>
+<span class="c1">#   _end_vectors</span>
+<span class="c1">#</span>
+<span class="c1"># Note: LATTICE VECTORS ARE SPECIFIED IN ROWS !</span>
+<span class="k">def</span> <span class="nf">GetInUnit</span><span class="p">(</span> <span class="n">incontent</span> <span class="p">):</span>
+    <span class="n">inunit</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">incontent</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;inunit&quot;</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="n">inunit</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()[</span><span class="mi">1</span><span class="p">]</span>
+            <span class="k">break</span>
+    <span class="k">return</span> <span class="n">inunit</span>
+<span class="k">def</span> <span class="nf">GetVectors</span><span class="p">(</span> <span class="n">incontent</span> <span class="p">):</span>
+    <span class="n">indstart</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">indend</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">incontent</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;_begin_vectors&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+            <span class="n">indstart</span> <span class="o">=</span> <span class="n">incontent</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">find</span><span class="p">(</span><span class="s2">&quot;_end_vectors&quot;</span><span class="p">)</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">:</span>
+                <span class="n">indend</span> <span class="o">=</span> <span class="n">incontent</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span> <span class="n">indstart</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">indend</span> <span class="p">):</span>
+        <span class="n">line</span> <span class="o">=</span> <span class="n">incontent</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+        <span class="n">result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">[</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="p">]</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">result</span>
+<span class="k">def</span> <span class="nf">Ang2Bohr</span><span class="p">(</span> <span class="n">LattVecAng</span> <span class="p">):</span>
+    <span class="n">LattVecBohr</span> <span class="o">=</span> <span class="n">LattVecAng</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">LattVecBohr</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">LattVecAng</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span>  <span class="mf">1.8897261246</span>
+    <span class="k">return</span> <span class="n">LattVecBohr</span>
+<span class="k">def</span> <span class="nf">DotProduct</span><span class="p">(</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="p">):</span>
+    <span class="n">dotproduct</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+        <span class="n">dotproduct</span> <span class="o">=</span> <span class="n">dotproduct</span> <span class="o">+</span> <span class="n">v1</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+    <span class="k">return</span> <span class="n">dotproduct</span>
+<span class="k">def</span> <span class="nf">CrossProduct</span><span class="p">(</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span> <span class="p">):</span>
+    <span class="c1"># v3 = v1 WILL LEAD TO WRONG RESULT</span>
+    <span class="n">v3</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">v3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">v3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">v1</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">)</span>
+    <span class="n">v3</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="n">v1</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">v1</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">*</span> <span class="n">v2</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">)</span>
+    <span class="k">return</span> <span class="n">v3</span>
+<span class="k">def</span> <span class="nf">CalcRecVectors</span><span class="p">(</span> <span class="n">lattvec</span> <span class="p">):</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.141592653589793</span>
+    <span class="n">a1</span> <span class="o">=</span> <span class="n">lattvec</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">a2</span> <span class="o">=</span> <span class="n">lattvec</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">a3</span> <span class="o">=</span> <span class="n">lattvec</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">b1</span> <span class="o">=</span> <span class="n">CrossProduct</span><span class="p">(</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a3</span> <span class="p">)</span>
+    <span class="n">b2</span> <span class="o">=</span> <span class="n">CrossProduct</span><span class="p">(</span> <span class="n">a3</span><span class="p">,</span> <span class="n">a1</span> <span class="p">)</span>
+    <span class="n">b3</span> <span class="o">=</span> <span class="n">CrossProduct</span><span class="p">(</span> <span class="n">a1</span><span class="p">,</span> <span class="n">a2</span> <span class="p">)</span>
+    <span class="n">volume</span> <span class="o">=</span> <span class="n">DotProduct</span><span class="p">(</span> <span class="n">a1</span><span class="p">,</span> <span class="n">CrossProduct</span><span class="p">(</span> <span class="n">a2</span><span class="p">,</span> <span class="n">a3</span> <span class="p">)</span> <span class="p">)</span>
+    <span class="n">RecVec</span> <span class="o">=</span> <span class="p">[</span> <span class="n">b1</span><span class="p">,</span> <span class="n">b2</span><span class="p">,</span> <span class="n">b3</span> <span class="p">]</span>
+    <span class="c1"># it follows the definition for b_j: a_i * b_j = 2pi * delta(i,j)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">):</span>
+            <span class="n">RecVec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">RecVec</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">pi</span> <span class="o">/</span> <span class="n">volume</span>
+    <span class="k">return</span> <span class="n">RecVec</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">argv</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+    <span class="n">argv</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span>
+    <span class="n">infilename</span>  <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">outfilename</span> <span class="o">=</span> <span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+    <span class="n">pi</span> <span class="o">=</span> <span class="mf">3.141592653589793</span>
+    <span class="n">bohr2ang</span> <span class="o">=</span> <span class="mf">0.5291772109253</span>
+    <span class="n">ang2bohr</span> <span class="o">=</span> <span class="mf">1.889726124546</span>
+    <span class="n">infile</span>  <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">infilename</span><span class="p">,</span><span class="s2">&quot;r&quot;</span><span class="p">)</span>
+    <span class="n">incontent</span> <span class="o">=</span> <span class="n">infile</span><span class="o">.</span><span class="n">readlines</span><span class="p">()</span>
+    <span class="n">infile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">inunit</span> <span class="o">=</span> <span class="n">GetInUnit</span><span class="p">(</span> <span class="n">incontent</span> <span class="p">)</span>
+    <span class="n">LattVectors</span> <span class="o">=</span> <span class="n">GetVectors</span><span class="p">(</span> <span class="n">incontent</span> <span class="p">)</span>
+    <span class="c1"># convert units from ang to bohr</span>
+    <span class="k">if</span> <span class="n">inunit</span> <span class="o">==</span> <span class="s2">&quot;ang&quot;</span><span class="p">:</span>
+        <span class="n">LattVectors</span> <span class="o">=</span> <span class="n">Ang2Bohr</span><span class="p">(</span> <span class="n">LattVectors</span> <span class="p">)</span>
+    <span class="c1"># calculate reciprocal vectors in 1/bohr</span>
+    <span class="n">RecVectors</span> <span class="o">=</span> <span class="n">CalcRecVectors</span><span class="p">(</span> <span class="n">LattVectors</span> <span class="p">)</span>
+    <span class="c1"># open outfile for output</span>
+    <span class="n">ofile</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">outfilename</span><span class="p">,</span><span class="s2">&quot;w&quot;</span><span class="p">)</span>
+    <span class="c1"># output lattice vectors in bohr</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;lattice vectors in bohr:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">LattVectors</span><span class="p">:</span>
+        <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%14.9f%14.9f%14.9f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vi</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vi</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># output lattice vectors in ang</span>
+    <span class="n">convfac</span> <span class="o">=</span> <span class="n">bohr2ang</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;lattice vectors in ang:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">LattVectors</span><span class="p">:</span>
+        <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%14.9f%14.9f%14.9f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">))</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># output reciprocal vectors in 1/bohr</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;reciprocal vectors in 1/bohr:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">RecVectors</span><span class="p">:</span>
+        <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%14.9f%14.9f%14.9f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vi</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">vi</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">vi</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># output reciprocal vectors in 1/ang</span>
+    <span class="n">convfac</span> <span class="o">=</span> <span class="n">ang2bohr</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;reciprocal vectors in 1/ang:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">RecVectors</span><span class="p">:</span>
+        <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%14.9f%14.9f%14.9f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">))</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># output reciprocal vectors in 2pi/bohr</span>
+    <span class="n">convfac</span> <span class="o">=</span> <span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;reciprocal vectors in 2pi/bohr:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">RecVectors</span><span class="p">:</span>
+        <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%14.9f%14.9f%14.9f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">))</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="c1"># output reciprocal vectors in 2pi/ang</span>
+    <span class="n">convfac</span> <span class="o">=</span> <span class="n">ang2bohr</span><span class="o">/</span><span class="p">(</span><span class="mf">2.0</span><span class="o">*</span><span class="n">pi</span><span class="p">)</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;reciprocal vectors in 2pi/ang:</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">vi</span> <span class="ow">in</span> <span class="n">RecVectors</span><span class="p">:</span>
+        <span class="n">ofile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">%14.9f%14.9f%14.9f</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">vi</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">,</span> <span class="n">vi</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="o">*</span><span class="n">convfac</span><span class="p">))</span>
+    <span class="c1"># close</span>
+    <span class="n">ofile</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">return</span> <span class="mi">0</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+   <span class="kn">import</span> <span class="nn">sys</span>
+   <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">main</span><span class="p">())</span>
+</pre></div>
+</div>
+</section>
+<section id="inse">
+<h1>二维InSe有效质量计算过程<a class="headerlink" href="#inse" title="永久链接至标题"></a></h1>
+<section id="id5">
+<h2>建模<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<p>由于计算过程中需要对二维InSe施加应变，但二维InSe原胞是六角结构，不容易施加应变。但是侯柱峰老师讲了对石墨烯原胞施加应变的方法，笔者认为虽然可行，但过于繁琐，故不采用此法。我们可以利用根号建模的方法讲六角结构InSe原胞变为方形结构的InSe超胞，然后施加应变可大大提高操作效率，但计算量的增加在可接受范围之内。下面给出关键的建模步骤，更多的根号建模部分可参考我的往期博客文章。</p>
+<figure class="align-default">
+<img alt="../../_images/2D-InSe-mobility.png" src="../../_images/2D-InSe-mobility.png" />
+</figure>
+</section>
+<section id="id6">
+<h2>能带计算<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
+<section id="id7">
+<h3>结构优化<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<div class="line-block">
+<div class="line">INCAR</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SYSTEM</span> <span class="o">=</span> InSe
+<span class="nv">ISTART</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">NWRITE</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">PREC</span>   <span class="o">=</span> Accurate
+<span class="nv">ENCUT</span>  <span class="o">=</span> <span class="m">500</span>
+<span class="nv">GGA</span>    <span class="o">=</span> PE
+<span class="nv">NSW</span>    <span class="o">=</span> <span class="m">200</span>
+<span class="nv">ISIF</span>   <span class="o">=</span> <span class="m">3</span>
+<span class="nv">ISYM</span>   <span class="o">=</span> <span class="m">2</span>
+<span class="nv">IBRION</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">NELM</span>   <span class="o">=</span> <span class="m">80</span>
+<span class="nv">EDIFF</span>  <span class="o">=</span> 1E-05
+<span class="nv">EDIFFG</span> <span class="o">=</span> -0.01
+<span class="nv">ALGO</span>   <span class="o">=</span> Normal
+<span class="nv">LDIAG</span>  <span class="o">=</span> .TRUE.
+<span class="nv">LREAL</span>  <span class="o">=</span> .FALSE.
+<span class="nv">ISMEAR</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">SIGMA</span>  <span class="o">=</span> <span class="m">0</span>.05
+<span class="nv">ICHARG</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">LWAVE</span>  <span class="o">=</span>  .FALSE.
+<span class="nv">LCHARG</span> <span class="o">=</span> .FALSE.
+<span class="nv">NPAR</span>   <span class="o">=</span> <span class="m">4</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">KPOINTS</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>Monkhorst Pack
+<span class="m">0</span>
+Gamma
+ <span class="m">11</span>   <span class="m">7</span>   <span class="m">1</span>
+.0   .0   .0
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">POSCAR</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>  Se   In
+  <span class="m">1</span>.000
+       <span class="m">4</span>.083622259999999      -0.000000000000001       <span class="m">0</span>.000000000000000
+       <span class="m">0</span>.000000000000000       <span class="m">7</span>.073041233239241       <span class="m">0</span>.000000000000000
+       <span class="m">0</span>.000000000000000       <span class="m">0</span>.000000000000000      <span class="m">25</span>.377516849029359
+  Se   In
+  <span class="m">4</span>   <span class="m">4</span>
+Direct
+  <span class="m">0</span>.5000005000000000   <span class="m">0</span>.1666665000000000   <span class="m">0</span>.5271404971815050   !Se
+  <span class="m">0</span>.0000004999999997   <span class="m">0</span>.6666665000000004   <span class="m">0</span>.5271404971815050   !Se
+  <span class="m">0</span>.5000005000000000   <span class="m">0</span>.1666665000000000   <span class="m">0</span>.3152396685456632   !Se
+  <span class="m">0</span>.0000004999999997   <span class="m">0</span>.6666665000000004   <span class="m">0</span>.3152396685456632   !Se
+  <span class="m">0</span>.4999995000000003   <span class="m">0</span>.8333335000000002   <span class="m">0</span>.4767849697227853   !In
+ -0.0000005000000000   <span class="m">0</span>.3333335000000000   <span class="m">0</span>.4767849697227853   !In
+  <span class="m">0</span>.4999995000000003   <span class="m">0</span>.8333335000000002   <span class="m">0</span>.3655951960043828   !In
+ -0.0000005000000000   <span class="m">0</span>.3333335000000000   <span class="m">0</span>.3655951960043828   !In
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">POTCAR</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>cat Se/POTCAR In_d/POTCAR &gt; POTCAR
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">OPTCELL</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="m">100</span>
+<span class="m">010</span>
+<span class="m">000</span>
+</pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>静态自洽<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<div class="line-block">
+<div class="line">INCAR</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nv">SYSTEM</span> <span class="o">=</span> InSe
+<span class="nv">ISTART</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">NWRITE</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">PREC</span>   <span class="o">=</span> Accurate
+<span class="nv">ENCUT</span>  <span class="o">=</span> <span class="m">500</span>
+<span class="nv">GGA</span>    <span class="o">=</span> PE
+<span class="nv">NSW</span>    <span class="o">=</span> <span class="m">0</span>
+<span class="nv">ISIF</span>   <span class="o">=</span> <span class="m">2</span>
+<span class="nv">ISYM</span>   <span class="o">=</span> <span class="m">2</span>
+<span class="nv">IBRION</span> <span class="o">=</span> -1
+<span class="nv">NELM</span>   <span class="o">=</span> <span class="m">80</span>
+<span class="nv">EDIFF</span>  <span class="o">=</span> 1E-05
+<span class="nv">EDIFFG</span> <span class="o">=</span> -0.01
+<span class="nv">ALGO</span>   <span class="o">=</span> Normal
+<span class="nv">LDIAG</span>  <span class="o">=</span> .TRUE.
+<span class="nv">LREAL</span>  <span class="o">=</span> .FALSE.
+<span class="nv">ISMEAR</span> <span class="o">=</span> <span class="m">0</span>
+<span class="nv">SIGMA</span>  <span class="o">=</span> <span class="m">0</span>.05
+<span class="nv">ICHARG</span> <span class="o">=</span> <span class="m">2</span>
+<span class="nv">NPAR</span>   <span class="o">=</span> <span class="m">4</span>
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">KPOINTS</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>Monkhorst Pack
+<span class="m">0</span>
+Gamma
+ <span class="m">21</span>   <span class="m">13</span>   <span class="m">1</span>
+.0   .0   .0
+</pre></div>
+</div>
+<div class="line-block">
+<div class="line">POSCAR</div>
+</div>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>cp CONTCAR scf/POSCAR
+</pre></div>
+</div>
+</section>
+<section id="id9">
+<h3>能带计算<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../../tutorial.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../pymatgen/basic.html" class="btn btn-neutral float-right" title="Basic Module" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -4,7 +4,7 @@ Overview
 This Blog aims at providing some useful installation tips and first-principles calculations details.
 
 | About Me
-| Yong He
+| Yong He (贺勇)
 | Ph. D Student.
 | Department of Physics, Peking University
 | Beijing 100871, China.

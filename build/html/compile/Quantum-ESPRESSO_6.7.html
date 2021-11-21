@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download and Install &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Download and Install" href="abinit_9.4.2.html" />
+    <link rel="prev" title="Download and Install" href="hdf5_1.12.0.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Physics
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../compile.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#libbeef">libbeef</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#libxc">libxc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#hdf5">hdf5</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../compile.html#quantum-espresso">Quantum-ESPRESSO</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Download and Install</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#abinit">ABINIT</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#yambo">Yambo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#berkeleygw">BerkeleyGW</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../compile.html">Installation</a> &raquo;</li>
+      <li>Download and Install</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/compile/Quantum-ESPRESSO_6.7.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="download-and-install">
+<h1>Download and Install<a class="headerlink" href="#download-and-install" title="永久链接至标题"></a></h1>
+<section id="download">
+<h2>Download<a class="headerlink" href="#download" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>Download <a class="reference download external" download="" href="https://github.com/QEF/q-e/releases/download/qe-6.7.0/qe-6.7-ReleasePack.tgz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">6.7</span></code></a> of Quantum-ESPRESSO.</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/QEF/q-e/releases/download/qe-6.7.0/qe-6.7-ReleasePack.tgz
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>One should also download the thermo_pw <a class="reference download external" download="" href="http://people.sissa.it/~dalcorso/thermo_pw/thermo_pw.1.4.1.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">1.4.1</span></code></a> and Wannier90 <a class="reference download external" download="" href="https://github.com/wannier-developers/wannier90/archive/v3.1.0.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">3.1.0</span></code></a> codes</p>
+</div>
+</section>
+<section id="compile">
+<h2>Compile<a class="headerlink" href="#compile" title="永久链接至标题"></a></h2>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>Before compile Quantum-ESPRESSO package, one should compile the <a class="reference internal" href="libbeef.html"><span class="doc">libbeef</span></a>, <a class="reference internal" href="libxc_4.3.4.html"><span class="doc">libxc_4.3.4</span></a> and <a class="reference internal" href="hdf5_1.12.0.html"><span class="doc">hdf5_1.12.0</span></a></p>
+</div>
+<section id="preparation">
+<h3>preparation<a class="headerlink" href="#preparation" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>Unpack qe-6.7-ReleasePack</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>tar zxvf qe-6.7-ReleasePack.tgz <span class="o">&amp;&amp;</span> <span class="nb">cd</span> qe-6.7/test-suite
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Edit the check_pseudo.sh file as follows</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#</span>
+<span class="c1"># Copyright (C) 2001-2016 Quantum ESPRESSO group</span>
+<span class="c1">#</span>
+<span class="c1"># This program is free software; you can redistribute it and/or</span>
+<span class="c1"># modify it under the terms of the GNU General Public License</span>
+<span class="c1"># as published by the Free Software Foundation; either version 2</span>
+<span class="c1"># of the License. See the file &#39;License&#39; in the root directory</span>
+<span class="c1"># of the present distribution.</span>
+
+<span class="k">if</span> <span class="nb">test</span> <span class="s2">&quot;`which curl`&quot;</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="p">;</span> <span class="k">then</span>
+   <span class="k">if</span> <span class="nb">test</span> <span class="s2">&quot;`which wget`&quot;</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="p">;</span> <span class="k">then</span>
+      <span class="nb">echo</span> <span class="s2">&quot;### wget or curl not found: will not be able to download missing PP ###&quot;</span>
+   <span class="k">else</span>
+      <span class="nv">DOWNLOADER</span><span class="o">=</span><span class="s2">&quot;wget -O&quot;</span>
+      <span class="nb">echo</span> <span class="s2">&quot;wget found&quot;</span>
+   <span class="k">fi</span>
+<span class="k">else</span>
+   <span class="nv">DOWNLOADER</span><span class="o">=</span><span class="s2">&quot;curl -o&quot;</span>
+   <span class="nb">echo</span> <span class="s2">&quot;curl found&quot;</span>
+<span class="k">fi</span>
+
+<span class="nv">inputs</span><span class="o">=</span><span class="sb">`</span>find <span class="nv">$1</span>* -type f -name <span class="s2">&quot;*.in&quot;</span> -not -name <span class="s2">&quot;test.*&quot;</span> -not -name <span class="s2">&quot;benchmark.*&quot;</span><span class="sb">`</span>
+<span class="nv">pp_files</span><span class="o">=</span><span class="sb">`</span><span class="k">for</span> x <span class="k">in</span> <span class="si">${</span><span class="nv">inputs</span><span class="si">}</span><span class="p">;</span> <span class="k">do</span> grep UPF <span class="si">${</span><span class="nv">x</span><span class="si">}</span> <span class="p">|</span> awk <span class="s1">&#39;{print $3}&#39;</span><span class="p">;</span> <span class="k">done</span><span class="sb">`</span>
+
+<span class="k">for</span> pp_file <span class="k">in</span> <span class="si">${</span><span class="nv">pp_files</span><span class="si">}</span> <span class="p">;</span> <span class="k">do</span>
+<span class="k">if</span> ! <span class="nb">test</span> -f <span class="si">${</span><span class="nv">ESPRESSO_PSEUDO</span><span class="si">}</span>/<span class="si">${</span><span class="nv">pp_file</span><span class="si">}</span> <span class="p">;</span> <span class="k">then</span>
+    <span class="nb">echo</span> -n <span class="s2">&quot;Downloading </span><span class="si">${</span><span class="nv">pp_file</span><span class="si">}</span><span class="s2"> to </span><span class="si">${</span><span class="nv">ESPRESSO_PSEUDO</span><span class="si">}</span><span class="s2"> ... &quot;</span>
+    <span class="si">${</span><span class="nv">DOWNLOADER</span><span class="si">}</span> <span class="si">${</span><span class="nv">ESPRESSO_PSEUDO</span><span class="si">}</span>/<span class="si">${</span><span class="nv">pp_file</span><span class="si">}</span> <span class="si">${</span><span class="nv">NETWORK_PSEUDO</span><span class="si">}</span>/<span class="si">${</span><span class="nv">pp_file</span><span class="si">}</span> <span class="m">2</span>&gt; /dev/null
+    <span class="k">if</span> <span class="nb">test</span> <span class="nv">$?</span> !<span class="o">=</span> <span class="m">0</span> <span class="p">;</span> <span class="k">then</span>
+        <span class="nb">echo</span> <span class="s2">&quot;Download of&quot;</span> <span class="si">${</span><span class="nv">pp_file</span><span class="si">}</span> <span class="s2">&quot;FAILED, do it manually -- Testing aborted!&quot;</span>
+        <span class="nb">exit</span> -1
+    <span class="k">else</span>
+        <span class="nb">echo</span> <span class="s2">&quot;done.&quot;</span>
+    <span class="k">fi</span>
+<span class="k">else</span>
+    <span class="nb">echo</span> <span class="s2">&quot;No need to download </span><span class="si">${</span><span class="nv">pp_file</span><span class="si">}</span><span class="s2">.&quot;</span>
+<span class="k">fi</span>
+<span class="k">done</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Download the pseudopotentials</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>make pseudo
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Unpack the thermo_pw and move it into Quantum-ESPRESSO main direction</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>tar zxvf thermo_pw.1.4.1.tar.gz <span class="o">&amp;&amp;</span> mv thermo_pw qe-6.7
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>Rename the Wannier90 code and move it into Quantum-ESPRESSO</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>mv wannier90-3.1.0.tar.gz v3.1.0 <span class="o">&amp;&amp;</span> mv v3.1.0 qe-6.7/archive/
+</pre></div>
+</div>
+</section>
+<section id="compile-quantum-espresso">
+<h3>Compile Quantum-ESPRESSO<a class="headerlink" href="#compile-quantum-espresso" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>Create configure file compile.sh</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>./configure <span class="nv">MPIF90</span><span class="o">=</span>mpiifort <span class="nv">CC</span><span class="o">=</span>mpiicc <span class="nv">F90</span><span class="o">=</span>ifort <span class="nv">F77</span><span class="o">=</span>mpiifort -enable-parallel <span class="se">\</span>
+        --with-libxc<span class="o">=</span>yes <span class="se">\</span>
+        --with-libxc-prefix<span class="o">=</span>/opt/software/libxc-4.3.4/bin <span class="se">\</span>
+        --with-libxc-include<span class="o">=</span>/opt/software/libxc-4.3.4/bin/include <span class="se">\</span>
+        --with-scalapack<span class="o">=</span>intel <span class="se">\</span>
+        --with-hdf5<span class="o">=</span>yes <span class="se">\</span>
+        --with-hdf5-libs<span class="o">=</span>/opt/software/hdf5-1.12.0_intelmpi/hdf5-1.12.0/hdf5/lib <span class="se">\</span>
+        --with-hdf5-include<span class="o">=</span>/opt/software/hdf5-1.12.0_intelmpi/hdf5-1.12.0/hdf5/include <span class="se">\</span>
+        --with-libbeef<span class="o">=</span>yes <span class="se">\</span>
+        --with-libbeef-prefix<span class="o">=</span>/opt/software/libbeef/build/lib
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>configure Quantum-ESPRESSO</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash compile.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>Edit the make.inc file</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="m">43</span>  <span class="nv">DFLAGS</span>         <span class="o">=</span>  -D__DFTI -D__LIBXC -D__MPI -D__SCALAPACK -D__NOBEEF
+<span class="m">109</span> <span class="nv">FFLAGS</span>         <span class="o">=</span> -O3 -assume byterecl -g -traceback -xhost
+<span class="m">124</span> <span class="nv">LD_LIBS</span>        <span class="o">=</span> -L/opt/software/libxc-4.3.4/bin/lib -lxcf03 -lxc
+<span class="m">131</span> <span class="nv">BLAS_LIBS</span>      <span class="o">=</span>   -L<span class="si">${</span><span class="nv">MKLROOT</span><span class="si">}</span>/lib/intel64 -lmkl_scalapack_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64 -lpthread -lm -ldl
+<span class="m">137</span> <span class="nv">LAPACK_LIBS</span>    <span class="o">=</span> -L<span class="si">${</span><span class="nv">MKLROOT</span><span class="si">}</span>/lib/intel64 -lmkl_scalapack_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64 -lpthread -lm -ldl
+<span class="m">140</span> <span class="nv">SCALAPACK_LIBS</span> <span class="o">=</span> -L<span class="si">${</span><span class="nv">MKLROOT</span><span class="si">}</span>/lib/intel64 -lmkl_scalapack_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64 -lpthread -lm -ldl
+<span class="m">145</span> <span class="nv">FFT_LIBS</span>       <span class="o">=</span> -L<span class="si">${</span><span class="nv">MKLROOT</span><span class="si">}</span>/lib/intel64 -lmkl_scalapack_lp64 -lmkl_intel_lp64 -lmkl_sequential -lmkl_core -lmkl_blacs_intelmpi_lp64 -lpthread -lm -ldl
+<span class="m">148</span> <span class="nv">HDF5_LIBS</span> <span class="o">=</span> -L/opt/software/hdf5-1.12.0_intelmpi/hdf5-1.12.0/hdf5/lib -lhdf5
+<span class="m">155</span> <span class="nv">MPI_LIBS</span>       <span class="o">=</span> -L/opt/intel/impi/2019.9.304/intel64/lib -lmpi
+<span class="m">163</span> <span class="nv">BEEF_LIBS</span>      <span class="o">=</span> /opt/software/libbeef/build/lib/libbeef.a
+<span class="m">164</span> <span class="nv">BEEF_LIBS_SWITCH</span> <span class="o">=</span> internal
+<span class="m">185</span> <span class="nv">LIBXC_LIBS</span>     <span class="o">=</span> -L/opt/software/libxc-4.3.4/bin/lib -lxcf03 -lxc
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>compile Quantum-ESPRESSO</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nv">pp</span><span class="o">=</span><span class="m">4</span>
+make -j <span class="nv">$pp</span> pw <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> ph <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> hp <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> pwcond <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> neb <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> pp <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> cp <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> tddfpt <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> gwl <span class="se">\</span>
+    <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> ld1 <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> xspectra <span class="o">&amp;&amp;</span> make -j <span class="nv">$pp</span> couple <span class="o">&amp;&amp;</span> make epw
+
+<span class="nb">cd</span> thermo_pw <span class="o">&amp;&amp;</span> make join_qe <span class="o">&amp;&amp;</span> <span class="nb">cd</span> ../ <span class="o">&amp;&amp;</span> make thermo_pw
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>test Quantum-ESPRESSO</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> test-suite <span class="o">&amp;&amp;</span> make run-tests-parallel
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="hdf5_1.12.0.html" class="btn btn-neutral float-left" title="Download and Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="abinit_9.4.2.html" class="btn btn-neutral float-right" title="Download and Install" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

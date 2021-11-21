@@ -14,3 +14,27 @@ Quantum-ESPRESSO
 
 EPW
 ####
+
+pymatgen
+#########
+
+.. toctree::
+    :maxdepth: 2
+
+    ./tutorials/pymatgen/basic.rst
+
+Gnuplot
+#########
+
+.. toctree::
+    :maxdepth: 2
+
+    ./tutorials/gnuplot/commands.rst
+
+Atomic Simulation Environment (ASE)
+###################################
+
+.. toctree::
+    :maxdepth: 2
+
+    ./tutorials/ase/basic.rst

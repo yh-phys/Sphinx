@@ -1,94 +1,65 @@
-
-
 <!DOCTYPE html>
 <html class="writer-html5" lang="zh-CN" >
 <head>
-  <meta charset="utf-8" />
-  
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  
   <title>Installation &mdash; Physics 1.00 文档</title>
-  
-
-  
-  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
-
-  
-  
-
-  
-  
-
-  
-
-  
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="_static/favicon.png"/>
   <!--[if lt IE 9]>
     <script src="_static/js/html5shiv.min.js"></script>
   <![endif]-->
   
-    
-      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
         <script src="_static/jquery.js"></script>
         <script src="_static/underscore.js"></script>
         <script src="_static/doctools.js"></script>
         <script src="_static/translations.js"></script>
-    
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-
-    
+    <script src="_static/js/theme.js"></script>
     <link rel="index" title="索引" href="genindex.html" />
     <link rel="search" title="搜索" href="search.html" />
-    <link rel="next" title="Download and Install" href="compile/abinit_9.4.2.html" />
+    <link rel="next" title="Download and Install" href="compile/libbeef.html" />
     <link rel="prev" title="Overview" href="welcome.html" /> 
 </head>
 
-<body class="wy-body-for-nav">
-
-   
+<body class="wy-body-for-nav"> 
   <div class="wy-grid-for-nav">
-    
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
         <div class="wy-side-nav-search" >
-          
-
-          
             <a href="index.html" class="icon icon-home"> Physics
-          
-
-          
+            <img src="_static/logo.png" class="logo" alt="Logo"/>
           </a>
-
-          
-            
-            
-          
-
-          
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
-    <input type="text" name="q" placeholder="Search docs" />
+    <input type="text" name="q" placeholder="在文档中搜索" />
     <input type="hidden" name="check_keywords" value="yes" />
     <input type="hidden" name="area" value="default" />
   </form>
 </div>
-
-          
-        </div>
-
-        
-        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          
-            
-            
-              
-            
-            
-              <p class="caption"><span class="caption-text">Contents</span></p>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="welcome.html">Overview</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#libbeef">libbeef</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/libbeef.html">Download and Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#libxc">libxc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/libxc_4.3.4.html">Download and Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#hdf5">hdf5</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/hdf5_1.12.0.html">Download and Install</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#quantum-espresso">Quantum-ESPRESSO</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/Quantum-ESPRESSO_6.7.html">Download and Install</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="#abinit">ABINIT</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="compile/abinit_9.4.2.html">Download and Install</a></li>
 </ul>
@@ -97,81 +68,96 @@
 <li class="toctree-l3"><a class="reference internal" href="compile/yambo_5.0.2.html">Download and Install</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="#berkeleygw">BerkeleyGW</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="compile/BerkeleyGW_3.0.1.html">Download and Install</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="tutorial.html">Tutorials</a></li>
 </ul>
 
-            
-          
         </div>
-        
       </div>
     </nav>
 
-    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
-
-      
-      <nav class="wy-nav-top" aria-label="top navigation">
-        
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">Physics</a>
-        
       </nav>
 
-
       <div class="wy-nav-content">
-        
         <div class="rst-content">
-        
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<div role="navigation" aria-label="breadcrumbs navigation">
-
+          <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
-    
       <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
-        
       <li>Installation</li>
-    
-    
       <li class="wy-breadcrumbs-aside">
-        
-          
-            <a href="_sources/compile.rst.txt" rel="nofollow"> View page source</a>
-          
-        
+            <a href="_sources/compile.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
-    
   </ul>
-
-  
   <hr/>
 </div>
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
-            
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="永久链接至标题">¶</a></h1>
-<div class="section" id="abinit">
-<h2>ABINIT<a class="headerlink" href="#abinit" title="永久链接至标题">¶</a></h2>
-<p>Compile abinit-9.4.2 with Intel Parallel Studio Xe 2020_update4</p>
+             
+  <section id="installation">
+<h1>Installation<a class="headerlink" href="#installation" title="永久链接至标题"></a></h1>
+<section id="libbeef">
+<h2>libbeef<a class="headerlink" href="#libbeef" title="永久链接至标题"></a></h2>
+<p>Compile libbeef using Intel Parallel Studio Xe 2020_update4</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compile/libbeef.html">Download and Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compile/libbeef.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile/libbeef.html#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="libxc">
+<h2>libxc<a class="headerlink" href="#libxc" title="永久链接至标题"></a></h2>
+<p>Compile libxc-4.3.4 using Intel Parallel Studio Xe 2020_update4</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compile/libxc_4.3.4.html">Download and Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compile/libxc_4.3.4.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile/libxc_4.3.4.html#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="hdf5">
+<h2>hdf5<a class="headerlink" href="#hdf5" title="永久链接至标题"></a></h2>
+<p>Compile hdf5-1.12.0 using Intel Parallel Studio Xe 2020_update4</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compile/hdf5_1.12.0.html">Download and Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compile/hdf5_1.12.0.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile/hdf5_1.12.0.html#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="quantum-espresso">
+<h2>Quantum-ESPRESSO<a class="headerlink" href="#quantum-espresso" title="永久链接至标题"></a></h2>
+<p>Compile Quantum ESPRESSO-6.7, including EPW and thermo_pw codes, using Intel Parallel Studio Xe 2020_update4 with libbeef, libxc-4.3.4 and HDF5-1.12.0 packsges</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compile/Quantum-ESPRESSO_6.7.html">Download and Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compile/Quantum-ESPRESSO_6.7.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile/Quantum-ESPRESSO_6.7.html#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</section>
+<section id="abinit">
+<h2>ABINIT<a class="headerlink" href="#abinit" title="永久链接至标题"></a></h2>
+<p>Compile abinit-9.4.2 using Intel Parallel Studio Xe 2020_update4</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="compile/abinit_9.4.2.html">Download and Install</a><ul>
@@ -181,10 +167,10 @@
 </li>
 </ul>
 </div>
-</div>
-<div class="section" id="yambo">
-<h2>Yambo<a class="headerlink" href="#yambo" title="永久链接至标题">¶</a></h2>
-<p>Compile Yambo-5.0.2 with Intel Parallel Studio Xe 2020_update4</p>
+</section>
+<section id="yambo">
+<h2>Yambo<a class="headerlink" href="#yambo" title="永久链接至标题"></a></h2>
+<p>Compile Yambo-5.0.2 using Intel Parallel Studio Xe 2020_update4</p>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="compile/yambo_5.0.2.html">Download and Install</a><ul>
@@ -194,55 +180,51 @@
 </li>
 </ul>
 </div>
+</section>
+<section id="berkeleygw">
+<h2>BerkeleyGW<a class="headerlink" href="#berkeleygw" title="永久链接至标题"></a></h2>
+<p>Compile BerkeleyGW-3.0.1 using Intel Parallel Studio Xe 2020_update4</p>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="compile/BerkeleyGW_3.0.1.html">Download and Install</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="compile/BerkeleyGW_3.0.1.html#download">Download</a></li>
+<li class="toctree-l2"><a class="reference internal" href="compile/BerkeleyGW_3.0.1.html#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
 </div>
-</div>
+</section>
+</section>
 
 
            </div>
-           
           </div>
-          <footer>
-    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
-        <a href="compile/abinit_9.4.2.html" class="btn btn-neutral float-right" title="Download and Install" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
-        <a href="welcome.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="welcome.html" class="btn btn-neutral float-left" title="Overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="compile/libbeef.html" class="btn btn-neutral float-right" title="Download and Install" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>
-        &#169; 版权所有 2021, Hey.
-
-    </p>
+    <p>&#169; 版权所有 2021, Yong He.</p>
   </div>
-    
-    
-    
-    Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
-    
-    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
-    
-    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
 
 </footer>
         </div>
       </div>
-
     </section>
-
   </div>
-  
-
-  <script type="text/javascript">
+  <script>
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script>
-
-  
-  
-    
-   
+  </script> 
 
 </body>
 </html>

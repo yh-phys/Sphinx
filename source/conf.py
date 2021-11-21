@@ -18,19 +18,23 @@ sys.path.insert(0, os.path.abspath('.'))
 # -- Project information -----------------------------------------------------
 
 project = 'Physics'
-copyright = '2021, Hey'
-author = 'Hey'
+copyright = '2021, Yong He'
+author = 'Yong He'
 
 # The full version, including alpha/beta/rc tags
 release = '1.00'
 
+# -- Personal Configure ------------------------------------------------------
+highlight_language = 'Bash'
+html_logo = './_static/logo.png'
+html_favicon = './_static/favicon.png'
 
 # -- General configuration ---------------------------------------------------
 
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = [
+extensions = ['sphinx.ext.autodoc'
 ]
 
 source_suffix = ['.rst']
@@ -63,3 +67,31 @@ html_theme = 'sphinx_rtd_theme'
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+# -- Latex Configure ---------------------------------------------------------
+
+latex_engine = 'xelatex'
+latex_logo = './_static/logo.png'
+latex_use_parts = 'true'
+latex_show_urls = 'footnote'
+man_pages = ['description']
+latex_elements = {
+    'papersize': 'a4paper',
+    'pointsize': '12pt',
+    'preamble': r'''
+\usepackage{xeCJK}
+\usepackage{indentfirst}
+\usepackage{times}
+\setCJKmainfont[BoldFont=STZhongsong, ItalicFont=STKaiti]{STSong}
+\setCJKsansfont[BoldFont=SimHei]{STXihei}
+\setCJKmonofont{STFangsong}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+\parindent 2em
+\definecolor{VerbatimColor}{rgb}{0.95,0.95,0.95}
+\setcounter{tocdepth}{3}
+\renewcommand\familydefault{\ttdefault}
+\renewcommand\CJKfamilydefault{\CJKrmdefault}
+'''
+}
+

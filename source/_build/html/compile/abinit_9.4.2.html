@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Download and Install &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Download and Install" href="yambo_5.0.2.html" />
+    <link rel="prev" title="Download and Install" href="Quantum-ESPRESSO_6.7.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Physics
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../compile.html">Installation</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#libbeef">libbeef</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#libxc">libxc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#hdf5">hdf5</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#quantum-espresso">Quantum-ESPRESSO</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../compile.html#abinit">ABINIT</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Download and Install</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#compile">Compile</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#yambo">Yambo</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../compile.html">Installation</a> &raquo;</li>
+      <li>Download and Install</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/compile/abinit_9.4.2.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="download-and-install">
+<h1>Download and Install<a class="headerlink" href="#download-and-install" title="永久链接至标题"></a></h1>
+<section id="download">
+<h2>Download<a class="headerlink" href="#download" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>Download <a class="reference download external" download="" href="https://www.abinit.org/sites/default/files/packages/abinit-9.4.2.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">9.4.2</span></code></a> of abinit.</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://www.abinit.org/sites/default/files/packages/abinit-9.4.2.tar.gz
+</pre></div>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>One should also download the recommended ABINIT Fallbacks</p>
+</div>
+<ol class="arabic simple">
+<li><p>Download <a class="reference download external" download="" href="https://www.abinit.org/fallbacks"><code class="xref download docutils literal notranslate"><span class="pre">Fallbacks</span></code></a> of abinit-9.4.2</p></li>
+</ol>
+</section>
+<section id="compile">
+<h2>Compile<a class="headerlink" href="#compile" title="永久链接至标题"></a></h2>
+<p>Before compile abinit package, one should create a installation direction and copy the abinit and wannier90 to this direction. Next, one should build a tarballs by following command.</p>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>mkdir -p ~/.abinit/tarballs
+</pre></div>
+</div>
+<p>Move the packages of above download (exclude wannier90) to tarballs.</p>
+<section id="compile-wannier90">
+<h3>Compile wannier90<a class="headerlink" href="#compile-wannier90" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>Unpack and configure wannier90. This can be done by copy/pasting the following lines:</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>tar zxvf wannier90-2.0.1.1.tar.gz <span class="o">&amp;&amp;</span> <span class="se">\</span>
+<span class="nb">cd</span> wannier90-2.0.1.1 <span class="o">&amp;&amp;</span> <span class="se">\</span>
+./configure <span class="nv">FC</span><span class="o">=</span>mpiifort <span class="nv">CC</span><span class="o">=</span>mpiicc <span class="se">\</span>
+    <span class="nv">prefix</span><span class="o">=</span>/opt/software/wannier90-2.0.1.1/build/ <span class="o">&amp;&amp;</span> <span class="se">\</span>
+make <span class="o">&amp;&amp;</span> <span class="se">\</span>
+make install
+</pre></div>
+</div>
+</section>
+<section id="compile-abinit">
+<h3>Compile abinit<a class="headerlink" href="#compile-abinit" title="永久链接至标题"></a></h3>
+<ol class="arabic simple">
+<li><p>Create configure file compile.sh</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>./configure <span class="nv">FC</span><span class="o">=</span>mpiifort <span class="nv">CC</span><span class="o">=</span>mpiicc <span class="se">\</span>
+    --prefix<span class="o">=</span>/opt/software/abinit-9.4.2/build <span class="se">\</span>
+    --enable-mpi-io<span class="o">=</span>yes <span class="se">\</span>
+    --with-mpi<span class="o">=</span>/opt/intel/impi/2019.9.304/intel64 <span class="se">\</span>
+    --enable-mpi-inplace<span class="o">=</span>yes <span class="se">\</span>
+    --enable-openmp<span class="o">=</span>yes <span class="se">\</span>
+    --enable-bse-unpacked<span class="o">=</span>yes <span class="se">\</span>
+    --enable-gw-dpc<span class="o">=</span>yes <span class="se">\</span>
+    --with-wannier90<span class="o">=</span>/opt/software/wannier90-2.0.1.1/build
+</pre></div>
+</div>
+<ol class="arabic simple" start="2">
+<li><p>configure abinit</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash compile.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="3">
+<li><p>compile fallbacks by following commands</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> fallbacks <span class="o">&amp;&amp;</span> bash build-abinit-fallbacks.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p>edit the compile.sh</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>./configure <span class="nv">FC</span><span class="o">=</span>mpiifort <span class="nv">CC</span><span class="o">=</span>mpiicc <span class="se">\</span>
+--prefix<span class="o">=</span>/opt/software/abinit-9.4.2/build <span class="se">\</span>
+--enable-mpi-io<span class="o">=</span>yes <span class="se">\</span>
+--with-mpi<span class="o">=</span>/opt/intel/impi/2019.9.304/intel64 <span class="se">\</span>
+--enable-mpi-inplace<span class="o">=</span>yes <span class="se">\</span>
+--enable-openmp<span class="o">=</span>yes <span class="se">\</span>
+--enable-bse-unpacked<span class="o">=</span>yes <span class="se">\</span>
+--enable-gw-dpc<span class="o">=</span>yes <span class="se">\</span>
+--with-wannier90<span class="o">=</span>/opt/software/wannier90-2.0.1.1/build <span class="se">\</span>
+<span class="nv">with_libxc</span><span class="o">=</span>/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/libxc/4.3.4 <span class="se">\</span>
+<span class="nv">with_hdf5</span><span class="o">=</span>/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/hdf5/1.10.6 <span class="se">\</span>
+<span class="nv">with_netcdf</span><span class="o">=</span>/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/netcdf4/4.6.3 <span class="se">\</span>
+<span class="nv">with_netcdf_fortran</span><span class="o">=</span>/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/netcdf4_fortran/4.5.2 <span class="se">\</span>
+<span class="nv">with_xmlf90</span><span class="o">=</span>/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/xmlf90/1.5.3.1 <span class="se">\</span>
+<span class="nv">with_libpsml</span><span class="o">=</span>/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/libpsml/1.1.7
+</pre></div>
+</div>
+<ol class="arabic simple" start="5">
+<li><p>configure abinit</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash compile.sh
+</pre></div>
+</div>
+<ol class="arabic simple" start="6">
+<li><p>compile abinit</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>make -j&lt;n&gt; <span class="o">&amp;&amp;</span> make install
+</pre></div>
+</div>
+<ol class="arabic simple" start="7">
+<li><p>test abinit</p></li>
+</ol>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>./runtests.py v1 -j4
+</pre></div>
+</div>
+<p>The test results are as follows.</p>
+<img alt="../_images/abinit_test_v1.png" src="../_images/abinit_test_v1.png" />
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Quantum-ESPRESSO_6.7.html" class="btn btn-neutral float-left" title="Download and Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="yambo_5.0.2.html" class="btn btn-neutral float-right" title="Download and Install" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
