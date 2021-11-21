@@ -8,12 +8,26 @@ VASP
     :maxdepth: 2
 
     ./tutorials/vasp/mobility.rst
+    ./tutorials/vasp/formation_energy.rst
+
+BerkeleyGW
+##########
+
+.. toctree::
+    :maxdepth: 2
+
+    ./tutorials/berkeleygw/gw.rst
 
 Quantum-ESPRESSO
 #################
 
 EPW
 ####
+
+.. toctree::
+    :maxdepth: 2
+
+    ./tutorials/epw/basic.rst
 
 pymatgen
 #########
