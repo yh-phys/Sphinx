@@ -36,7 +36,7 @@ Irvsp
     ./code/Irvsp
 
 phonopy
-######
+########
 
 .. toctree::
     :maxdepth: 2
