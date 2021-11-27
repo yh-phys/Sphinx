@@ -56,6 +56,7 @@ exclude_patterns = []
 
 
 # -- Options for HTML output -------------------------------------------------
+html_sidebars = { '**': ['globaltoc.html', 'sourcelink.html', 'searchbox.html']}
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.

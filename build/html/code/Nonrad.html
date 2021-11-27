@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nonrad程序: 计算载流子非辐射捕获系数 &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Installation" href="../compile.html" />
+    <link rel="prev" title="pydefect程序: 非金属体系点缺陷计算" href="pydefect.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Physics
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code list</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../code.html#pydefect">pydefect</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../code.html#nonrad">Nonrad</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Nonrad程序: 计算载流子非辐射捕获系数</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compile.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../code.html">Code list</a> &raquo;</li>
+      <li>Nonrad程序: 计算载流子非辐射捕获系数</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/Nonrad.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="nonrad">
+<h1>Nonrad程序: 计算载流子非辐射捕获系数<a class="headerlink" href="#nonrad" title="永久链接至标题"></a></h1>
+<p><strong>介绍</strong></p>
+<p>半导体晶体中的 <strong>点缺陷</strong> 为 <strong>载流子非辐射复合</strong> 提供了一种手段，这种复合过程会影响器件的性能。Alkauskas等人在2014年首先提出了基于量子力学方法来评估捕获过程[Phys. Rev. B 90, 075202 (2014)]，详细来说他们提出了一种评估投影缀加平面波中电子与声子耦合的方法。最近加州大学圣塔芭芭拉分校 <strong>Chris G. Van de Walle教授</strong> 课题组在Alkauskas等人的基础上开发了 <strong>Nonrad程序</strong> 用于评估载流子非辐射捕获系数。他们还表明，用高斯替换Dirac德尔塔函数的通用过程会在所得的捕获率中引入误差，并实现一种替代方案来适当考虑振动展宽。最后，他们通过与直接数值评估进行比较来评估对Sommerfeld参数使用解析近似的准确性。</p>
+<ul class="simple">
+<li><p>Nonrad下载链接和官方文档：</p></li>
+</ul>
+<p><a class="reference download external" download="" href="https://github.com/mturiansky/nonrad"><code class="xref download docutils literal notranslate"><span class="pre">Github</span></code></a></p>
+<p><a class="reference external" href="https://nonrad.readthedocs.io/en/latest/">Document</a></p>
+<ul class="simple">
+<li><p>Nonrad安装方法：</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>pip install nonrad
+</pre></div>
+</div>
+<p>如果科研中使用了Nonrad，请帮忙引用下面的文献: <a class="reference external" href="https://arxiv.org/pdf/2011.07433.pdf">Ref</a></p>
+<ul class="simple">
+<li><p>文献截图</p></li>
+</ul>
+<img alt="../_images/20210202005.png" src="../_images/20210202005.png" />
+<ul class="simple">
+<li><p>实际例子</p></li>
+</ul>
+<img alt="../_images/20210202006.png" src="../_images/20210202006.png" />
+<ul class="simple">
+<li><p>实际结果</p></li>
+</ul>
+<img alt="../_images/20210202007.png" src="../_images/20210202007.png" />
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="pydefect.html" class="btn btn-neutral float-left" title="pydefect程序: 非金属体系点缺陷计算" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../compile.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Irvsp程序：计算VASP中电子态的不可约表示 &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Installation" href="../compile.html" />
+    <link rel="prev" title="PyXtal程序: 晶体结构生成和对称性分析" href="PyXtal.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Physics
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code list</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../code.html#pydefect">pydefect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code.html#nonrad">Nonrad</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code.html#pyxtal">PyXtal</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../code.html#irvsp">Irvsp</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Irvsp程序：计算VASP中电子态的不可约表示</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compile.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../code.html">Code list</a> &raquo;</li>
+      <li>Irvsp程序：计算VASP中电子态的不可约表示</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/Irvsp.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="irvsp-vasp">
+<h1>Irvsp程序：计算VASP中电子态的不可约表示<a class="headerlink" href="#irvsp-vasp" title="永久链接至标题"></a></h1>
+<p><strong>介绍</strong></p>
+<p>最近 <strong>中国科学院物理研究所</strong> 北京凝聚态物理国家重点实验室的 <strong>Wang Zhijun教授课题组</strong> 开发了一个开放源代码的程序 <strong>irvsp</strong> 。 <strong>它通过与VASP的接口为所有230个空间群计算电子状态的不可约表示</strong> 。该代码由VASP软件包生成的基于平面波的波函数(例如WAVECAR)和空间群算子(列在OUTCAR中)提供。该程序计算矩阵表示的迹线，并确定三维布里渊区中所有能带和所有k点的对应不可约表示。 <strong>它还适用于自旋轨道耦合(SOC)</strong> ，即用于双群。建立拓扑量子化学理论后，分析能带，能带的连接性和能带拓扑结构特别有用。因此， <strong>开发了相关的库irrep_bcs.a，可以很容易地通过其它的ab-initio软件包链接到该库</strong> 。另外，该程序已扩展到正交紧束缚(TB)哈密顿量，例如电子或声子TB哈密顿量。</p>
+<ul class="simple">
+<li><p>irvsp下载链接：<a class="reference download external" download="" href="https://github.com/zjwang11/irvsp"><code class="xref download docutils literal notranslate"><span class="pre">Github</span></code></a></p></li>
+</ul>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="PyXtal.html" class="btn btn-neutral float-left" title="PyXtal程序: 晶体结构生成和对称性分析" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../compile.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

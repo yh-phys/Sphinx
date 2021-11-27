@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pydefect程序: 非金属体系点缺陷计算 &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Installation" href="../compile.html" />
+    <link rel="prev" title="Code list" href="../code.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Physics
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code list</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../code.html#pydefect">pydefect</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">pydefect程序: 非金属体系点缺陷计算</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compile.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../code.html">Code list</a> &raquo;</li>
+      <li>pydefect程序: 非金属体系点缺陷计算</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/pydefect.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pydefect">
+<h1>pydefect程序: 非金属体系点缺陷计算<a class="headerlink" href="#pydefect" title="永久链接至标题"></a></h1>
+<p><strong>介绍</strong></p>
+<p>半导体材料中的缺陷(点缺陷、线缺陷、面缺陷等)对于器件性能具有重要影响，如何构建这些缺陷模型，并且计算这些缺陷(缺陷形成能等)，以及衡量缺陷对性能的影响至关重要。尤其是对于带电缺陷的处理较为复杂，涉及各种经验修正等等，如果没有合适的脚本借助工作量较大。 <strong>pPydefect</strong> 是一个开源dePython库，用于基于VASP第一性原理计算的 <strong>非金属固体中的点缺陷处理</strong> 。开发者是东京工业大学的 <strong>Yu Kumagai教授</strong> 课题组。该程序主要的逻辑框架如下所示：</p>
+<a class="reference internal image-reference" href="../_images/20210202001.png"><img alt="../_images/20210202001.png" src="../_images/20210202001.png" style="width: 500px;" /></a>
+<ul class="simple">
+<li><p>思维框架图:</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/20210202001.png"><img alt="../_images/20210202001.png" src="../_images/20210202001.png" style="width: 500px;" /></a>
+<ul class="simple">
+<li><p>pydefect下载链接：<a class="reference download external" download="" href="https://github.com/kumagai-group/pydefect"><code class="xref download docutils literal notranslate"><span class="pre">Github</span></code></a></p></li>
+</ul>
+<div class="admonition attention">
+<p class="admonition-title">注意</p>
+<p>Pydefect现在仅支持维也纳ab-initio模拟程序包(VASP)，因此我们假设其输入和输出文件名(例如POSCAR，POTCAR，OUTCAR)以及VASP中使用的计算技术(例如周期性边界条件)</p>
+<p>遵循vasp约定，在pydefect中使用的单位是能量的eV和长度的埃</p>
+<p>仅假定非磁性主体材料</p>
+</div>
+<ul class="simple">
+<li><p>pydefect官方文档：<a class="reference external" href="https://kumagai-group.github.io/pydefect/">Document</a></p></li>
+<li><p>官方文档截图</p></li>
+</ul>
+<img alt="../_images/20210202002.png" src="../_images/20210202002.png" />
+<ul class="simple">
+<li><p>实际例子：</p></li>
+</ul>
+<a class="reference internal image-reference" href="../_images/20210202003.png"><img alt="../_images/20210202003.png" src="../_images/20210202003.png" style="width: 300px;" /></a>
+<a class="reference internal image-reference" href="../_images/20210202004.png"><img alt="../_images/20210202004.png" src="../_images/20210202004.png" style="width: 300px;" /></a>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../code.html" class="btn btn-neutral float-left" title="Code list" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../compile.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
