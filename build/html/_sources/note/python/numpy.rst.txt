@@ -4,7 +4,7 @@ Numpy
 常见函数说明
 ############
 
-* np.linspace：主要用来创建 **等差数列**
+* np.linspace 主要用来创建 **等差数列**
 
 | numpy.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0)
 | Return evenly spaced numbers over a specified interval.(在start和stop之间返回均匀间隔的数据)

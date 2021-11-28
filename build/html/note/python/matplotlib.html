@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Numpy &mdash; Physics 1.00 文档</title>
+  <title>Matplotlib &mdash; Physics 1.00 文档</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -20,8 +20,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="Matplotlib" href="matplotlib.html" />
-    <link rel="prev" title="Note" href="../../note.html" /> 
+    <link rel="next" title="database" href="../../database.html" />
+    <link rel="prev" title="Numpy" href="numpy.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -48,11 +48,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../../tutorial.html">Tutorials</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../note.html">Note</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../note.html#python">Python</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Numpy</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id1">常见函数说明</a></li>
+<li class="toctree-l3"><a class="reference internal" href="numpy.html">Numpy</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Matplotlib</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">常用命令说明</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="matplotlib.html">Matplotlib</a></li>
 </ul>
 </li>
 </ul>
@@ -75,9 +75,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../note.html">Note</a> &raquo;</li>
-      <li>Numpy</li>
+      <li>Matplotlib</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/note/python/numpy.rst.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../../_sources/note/python/matplotlib.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -85,31 +85,35 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="numpy">
-<h1>Numpy<a class="headerlink" href="#numpy" title="永久链接至标题"></a></h1>
+  <section id="matplotlib">
+<h1>Matplotlib<a class="headerlink" href="#matplotlib" title="永久链接至标题"></a></h1>
 <section id="id1">
-<h2>常见函数说明<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<h2>常用命令说明<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
+<ol class="arabic simple">
+<li><p>plt.legend() 显示 <strong>图例</strong>，需要放到画图参数后面</p></li>
+<li><p>plt.savefig(‘name.png’, dpi = 300, bbox_inches = ‘tight’, facecolor=’w’)</p></li>
+</ol>
 <ul class="simple">
-<li><p>np.linspace 主要用来创建 <strong>等差数列</strong></p></li>
+<li><p>参数说明</p></li>
 </ul>
 <div class="line-block">
-<div class="line">numpy.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0)</div>
-<div class="line">Return evenly spaced numbers over a specified interval.(在start和stop之间返回均匀间隔的数据)</div>
-<div class="line">Returns num evenly spaced samples, calculated over the interval [start, stop].</div>
-<div class="line">(返回的是 [start, stop]之间的均匀分布)</div>
-<div class="line">The endpoint of the interval can optionally be excluded.</div>
-<div class="line">Changed in version 1.16.0: Non-scalar start and stop are now supported.</div>
-<div class="line">(可以选择是否排除间隔的终点)</div>
+<div class="line">name.png 指定图片格式</div>
+<div class="line">dpi 设置分辨率</div>
+<div class="line">bbox_inches 是否保留外部的空白区域，一般设置为 <strong>tight</strong></div>
+<div class="line">facecolor 设置背景颜色</div>
 </div>
+<ol class="arabic simple" start="3">
+<li><p>plt.figure(figsize=(4, 5)) 创建画布</p></li>
+</ol>
+<ul class="simple">
+<li><p>参数说明</p></li>
+</ul>
 <div class="line-block">
-<div class="line">start:返回样本数据开始点</div>
-<div class="line">stop:返回样本数据结束点</div>
-<div class="line">num:生成的样本数据量，默认为50</div>
-<div class="line">endpoint：True则包含stop；False则不包含stop</div>
-<div class="line">retstep：If True, return (samples, step), where step is the spacing between samples.(即如果为True则结果会给出数据间隔)</div>
-<div class="line">dtype：输出数组类型</div>
-<div class="line">axis：0(默认)或-1</div>
+<div class="line">figsize 画布尺寸，单位为英寸</div>
 </div>
+<ol class="arabic simple" start="4">
+<li><p>plt.gca() 获得当前的Axes对象ax</p></li>
+</ol>
 </section>
 </section>
 
@@ -117,8 +121,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../note.html" class="btn btn-neutral float-left" title="Note" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="matplotlib.html" class="btn btn-neutral float-right" title="Matplotlib" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="numpy.html" class="btn btn-neutral float-left" title="Numpy" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../../database.html" class="btn btn-neutral float-right" title="database" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
