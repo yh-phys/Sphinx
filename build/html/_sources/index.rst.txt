@@ -14,6 +14,7 @@ Condensed Matter Physics
    code
    compile
    tutorial
+   note
    database
 
 
