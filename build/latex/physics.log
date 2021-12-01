@@ -1,4 +1,4 @@
-This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2021.11.21)  27 NOV 2021 20:57
+This is XeTeX, Version 3.14159265-2.6-0.999991 (TeX Live 2019/Debian) (preloaded format=xelatex 2021.11.21)  1 DEC 2021 10:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1480,33 +1480,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 3334--3334
 Chapter 5.
 [63
 
-] [64
+] [64]
+Chapter 6.
+[65
+
+] [66
 
 ]
-Chapter 6.
+Chapter 7.
 (./physics.ind)
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3398.
- [65]
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 3398.
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 3503.
+ [67]
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 3503.
  (./physics.aux)
-Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3398.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3398.
+Package atveryend Info: Empty hook `AtVeryEndDocument' on input line 3503.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 3503.
 
 Package rerunfilecheck Info: File `physics.out' has not changed.
-(rerunfilecheck)             Checksum: 928E270773B0FCB7A5409083F99BB8A5;10934.
+(rerunfilecheck)             Checksum: D879F3CF0A69C14FC2D37EDEA4A33261;11514.
 
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3398.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 3503.
  ) 
 Here is how much of TeX's memory you used:
- 17729 strings out of 479819
- 340881 string characters out of 5895845
- 855783 words of memory out of 5000000
- 34418 multiletter control sequences out of 15000+600000
+ 17764 strings out of 479819
+ 342559 string characters out of 5895845
+ 856776 words of memory out of 5000000
+ 34453 multiletter control sequences out of 15000+600000
  542581 words of font info for 119 fonts, out of 8000000 for 9000
  1349 hyphenation exceptions out of 8191
  43i,16n,79p,972b,543s stack positions out of 5000i,500n,10000p,200000b,80000s
 
-Output written on physics.pdf (69 pages).
+Output written on physics.pdf (71 pages).

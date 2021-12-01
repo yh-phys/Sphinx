@@ -11,8 +11,11 @@ Condensed Matter Physics
    :caption: Contents
 
    welcome
+   code
    compile
    tutorial
+   note
+   database
 
 
 

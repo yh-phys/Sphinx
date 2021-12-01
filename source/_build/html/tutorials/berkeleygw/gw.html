@@ -1,0 +1,1373 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GW计算过程 &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/translations.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../../genindex.html" />
+    <link rel="search" title="搜索" href="../../search.html" />
+    <link rel="next" title="NSCF Kpoints" href="../epw/basic.html" />
+    <link rel="prev" title="Formation Energy Calculation" href="../vasp/formation_energy.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../../index.html" class="icon icon-home"> Physics
+            <img src="../../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../welcome.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code.html">Code list</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../compile.html">Installation</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../../tutorial.html">Tutorials</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#vasp">VASP</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../../tutorial.html#berkeleygw">BerkeleyGW</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">GW计算过程</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#quantum-espresso">Quantum ESPRESSO计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#berkeleygw">BerkeleyGW计算</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">数据处理</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#quantum-espresso">Quantum-ESPRESSO</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#epw">EPW</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#pymatgen">pymatgen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#gnuplot">Gnuplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#atomic-simulation-environment-ase">Atomic Simulation Environment (ASE)</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../note.html">Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../database.html">database</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../../tutorial.html">Tutorials</a> &raquo;</li>
+      <li>GW计算过程</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/tutorials/berkeleygw/gw.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="gw">
+<h1>GW计算过程<a class="headerlink" href="#gw" title="永久链接至标题"></a></h1>
+<ul class="simple">
+<li><p>计算所需的文件结构如下：</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>├── <span class="m">5</span>-epsilon
+│   ├── bash
+│   └── epsilon.inp
+├── <span class="m">6</span>-sigma
+│   ├── bash
+│   ├── eqp.py
+│   └── sigma.inp
+├── <span class="m">7</span>-kernel
+│   ├── bash
+│   └── kernel.inp
+├── <span class="m">8</span>-absorption
+│   ├── absorption.inp
+│   └── bash
+├── <span class="m">9</span>-inteqp
+│   ├── bash
+│   └── inteqp.inp
+└── ESPRESSO
+    ├── <span class="m">0</span>-kgrid
+    │   ├── script_0
+    │   ├── WFN_fi.in
+    │   ├── WFN_fiq.in
+    │   ├── WFN.in
+    │   └── WFNq.in
+    ├── <span class="m">1</span>-scf
+    │   ├── bash
+    │   ├── B.SG15.PBE.UPF
+    │   ├── input
+    │   └── N.SG15.PBE.UPF
+    ├── <span class="m">2</span>-wfn
+    │   ├── bash
+    │   ├── degeneracy_check.x
+    │   ├── input
+    │   └── pp_in
+    ├── <span class="m">3</span>-wfnq
+    │   ├── bash
+    │   ├── input
+    │   └── pp_in
+    ├── <span class="m">5</span>-wfn_fi
+    │   ├── bash
+    │   ├── input
+    │   └── pp_in
+    ├── <span class="m">6</span>-wfn_fiq
+    │   ├── bash
+    │   ├── input
+    │   └── pp_in
+    ├── <span class="m">7</span>-band
+    │   ├── bash
+    │   ├── input
+    │   └── pp_in
+    └── script_1
+</pre></div>
+</div>
+<section id="quantum-espresso">
+<h2>Quantum ESPRESSO计算<a class="headerlink" href="#quantum-espresso" title="永久链接至标题"></a></h2>
+<section id="kgrid">
+<h3>0-kgrid文件修改<a class="headerlink" href="#kgrid" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>WFN.in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="m">5</span>   <span class="m">5</span>   <span class="m">1</span>         <span class="c1"># k点网格</span>
+<span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">0</span>.0
+<span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">0</span>.0
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000  <span class="c1"># 晶格常数</span>
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000  <span class="c1"># 晶格常数</span>
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000  <span class="c1"># 晶格常数</span>
+
+<span class="m">4</span> <span class="c1"># 原子总数</span>
+ <span class="m">1</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000 <span class="c1"># 第一个原子分数坐标</span>
+ <span class="m">1</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000 <span class="c1"># 第二个原子分数坐标</span>
+ <span class="m">2</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000 <span class="c1"># 第三个原子分数坐标</span>
+ <span class="m">2</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000 <span class="c1"># 第四个原子分数坐标</span>
+<span class="m">24</span> <span class="m">24</span> <span class="m">81</span> <span class="c1"># 傅里叶变换网格</span>
+.false.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>WFNq.in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="m">5</span>   <span class="m">5</span>   <span class="m">1</span>
+<span class="m">0</span>.0    <span class="m">0</span>.0  <span class="m">0</span>.0
+<span class="m">0</span>.001  <span class="m">0</span>.0  <span class="m">0</span>.0 <span class="c1"># 第一个数变为0.001</span>
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+
+<span class="m">4</span>
+ <span class="m">1</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+ <span class="m">1</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+ <span class="m">2</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+ <span class="m">2</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+<span class="m">24</span> <span class="m">24</span> <span class="m">81</span>
+.false.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>WFN_fi.in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="m">7</span>   <span class="m">7</span>   <span class="m">1</span>    <span class="c1"># k点网格变密，根据服务器计算能力修改</span>
+<span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">0</span>.0
+<span class="m">0</span>.0  <span class="m">0</span>.0  <span class="m">0</span>.0
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+
+<span class="m">4</span>
+ <span class="m">1</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+ <span class="m">1</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+ <span class="m">2</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+ <span class="m">2</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+<span class="m">24</span> <span class="m">24</span> <span class="m">81</span>
+.false.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>WFN_fiq.in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="m">7</span>   <span class="m">7</span>   <span class="m">1</span>
+<span class="m">0</span>.0    <span class="m">0</span>.0    <span class="m">0</span>.0
+<span class="m">0</span>.001  <span class="m">0</span>.001  <span class="m">0</span>.0 <span class="c1"># 第一个与第二个数变为0.001</span>
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+
+<span class="m">4</span>
+ <span class="m">1</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+ <span class="m">1</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+ <span class="m">2</span>     <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+ <span class="m">2</span>     <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+<span class="m">24</span> <span class="m">24</span> <span class="m">81</span>
+.false.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>script_0</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+<span class="c1">#</span>
+<span class="nv">KGRID</span><span class="o">=</span><span class="s2">&quot;/home/gengzi/apps/BerkeleyGW-2.1/bin/kgrid.x&quot;</span> <span class="c1">#修改BerkeleyGW路径</span>
+
+<span class="c1">#</span>
+<span class="nv">$KGRID</span> ./WFN.in ./WFN.out ./WFN.log
+<span class="nv">$KGRID</span> ./WFNq.in ./WFNq.out ./WFNq.log
+<span class="c1">#$KGRID ./WFN_co.in ./WFN_co.out ./WFN_co.log</span>
+<span class="nv">$KGRID</span> ./WFN_fi.in ./WFN_fi.out ./WFN_fi.log
+<span class="nv">$KGRID</span> ./WFN_fiq.in ./WFN_fiq.out ./WFN_fiq.log
+
+<span class="nb">cd</span> ..
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>生成输入文件</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash script_0
+</pre></div>
+</div>
+</section>
+<section id="id1">
+<h3>链接全局环境变量<a class="headerlink" href="#id1" title="永久链接至标题"></a></h3>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#</span>
+
+<span class="nv">sys</span><span class="o">=</span>BN                          <span class="c1"># 体系名称</span>
+<span class="nv">PO1</span><span class="o">=</span>B.SG15.PBE.UPF              <span class="c1"># 势文件名称</span>
+<span class="nv">PO2</span><span class="o">=</span>N.SG15.PBE.UPF              <span class="c1"># 势文件名称</span>
+
+mkdir ./2-wfn/<span class="nv">$sys</span>.save
+ln -s ../1-scf/<span class="nv">$PO1</span> ./2-wfn     <span class="c1"># 连接势文件，如果体系原子增加，相应的势文件也要增加</span>
+ln -s ../1-scf/<span class="nv">$PO2</span> ./2-wfn
+<span class="c1">#ln -s ../1-scf/vdW_kernel_table ./2-wfn</span>
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/data-file-schema.xml ./2-wfn/<span class="nv">$sys</span>.save
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/charge-density.dat ./2-wfn/<span class="nv">$sys</span>.save
+<span class="c1">#</span>
+mkdir ./3-wfnq/<span class="nv">$sys</span>.save
+ln -s ../1-scf/<span class="nv">$PO1</span> ./3-wfnq
+ln -s ../1-scf/<span class="nv">$PO2</span> ./3-wfnq
+<span class="c1">#ln -s ../1-scf/vdW_kernel_table   ./3-wfnq</span>
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/data-file-schema.xml ./3-wfnq/<span class="nv">$sys</span>.save
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/charge-density.dat ./3-wfnq/<span class="nv">$sys</span>.save
+<span class="c1">#</span>
+<span class="c1">#</span>
+mkdir ./5-wfn_fi/<span class="nv">$sys</span>.save
+ln -s ../1-scf/<span class="nv">$PO1</span> ./5-wfn_fi
+ln -s ../1-scf/<span class="nv">$PO2</span> ./5-wfn_fi
+<span class="c1">#ln -s ../1-scf/vdW_kernel_table   ./5-wfn_fi</span>
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/data-file-schema.xml ./5-wfn_fi/<span class="nv">$sys</span>.save
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/charge-density.dat ./5-wfn_fi/<span class="nv">$sys</span>.save
+
+mkdir ./6-wfn_fiq/<span class="nv">$sys</span>.save
+ln -s ../1-scf/<span class="nv">$PO1</span>  ./6-wfn_fiq
+ln -s ../1-scf/<span class="nv">$PO2</span>  ./6-wfn_fiq
+<span class="c1">#ln -s ../1-scf/vdW_kernel_table   ./6-wfn_fiq</span>
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/data-file-schema.xml ./6-wfn_fiq/<span class="nv">$sys</span>.save
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/charge-density.dat ./6-wfn_fiq/<span class="nv">$sys</span>.save
+
+mkdir ./7-band/<span class="nv">$sys</span>.save
+ln -s ../1-scf/<span class="nv">$PO1</span>  ./7-band
+ln -s ../1-scf/<span class="nv">$PO2</span>  ./7-band
+<span class="c1">#ln -s ../1-scf/vdW_kernel_table   ./6-wfn_fiq</span>
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/data-file-schema.xml ./7-band/<span class="nv">$sys</span>.save
+ln -s ../../1-scf/<span class="nv">$sys</span>.save/charge-density.dat ./7-band/<span class="nv">$sys</span>.save
+
+ln -s ../ESPRESSO/2-wfn/wfn.complex ../5-epsilon/WFN
+ln -s ../ESPRESSO/3-wfnq/wfn.complex ../5-epsilon/WFNq
+<span class="c1">#</span>
+ln -s ../ESPRESSO/2-wfn/vxc.dat ../6-sigma/vxc.dat
+ln -s ../ESPRESSO/2-wfn/rho.cplx ../6-sigma/RHO
+ln -s ../ESPRESSO/2-wfn/wfn.complex ../6-sigma/WFN_inner
+ln -s ../5-epsilon/eps0mat ../6-sigma
+ln -s ../5-epsilon/epsmat ../6-sigma
+<span class="c1">#</span>
+ln -s ../ESPRESSO/2-wfn/wfn.complex ../7-kernel/WFN_co
+ln -s ../5-epsilon/eps0mat ../7-kernel
+ln -s ../5-epsilon/epsmat ../7-kernel
+<span class="c1">#</span>
+ln -s ../ESPRESSO/2-wfn/wfn.complex ../8-absorption/WFN_co
+ln -s ../ESPRESSO/5-wfn_fi/wfn.complex ../8-absorption/WFN_fi
+ln -s ../ESPRESSO/6-wfn_fiq/wfn.complex ../8-absorption/WFNq_fi
+ln -s ../5-epsilon/eps0mat ../8-absorption
+ln -s ../5-epsilon/epsmat ../8-absorption
+ln -s ../7-kernel/bsedmat ../8-absorption
+ln -s ../7-kernel/bsexmat ../8-absorption
+<span class="c1">#</span>
+ln -s ../ESPRESSO/2-wfn/wfn.complex ../9-inteqp/WFN_co
+ln -s ../ESPRESSO/7-band/wfn.complex ../9-inteqp/WFN_fi
+ln -s ../5-epsilon/eps0mat ../9-inteqp
+ln -s ../5-epsilon/epsmat ../9-inteqp
+<span class="c1">#</span>
+ln -s ../8-absorption/eqp_co.dat ../9-inteqp
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>运行脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash script_1
+</pre></div>
+</div>
+</section>
+<section id="scf">
+<h3>1-scf<a class="headerlink" href="#scf" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>input文件</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>  <span class="p">&amp;</span>CONTROL
+  <span class="nv">calculation</span> <span class="o">=</span> <span class="s1">&#39;scf&#39;</span>
+  <span class="nv">etot_conv_thr</span> <span class="o">=</span>   <span class="m">4</span>.0000000000d-05
+  <span class="nv">forc_conv_thr</span> <span class="o">=</span>   <span class="m">1</span>.0000000000d-04
+  <span class="nv">outdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>
+  <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>
+  <span class="nv">pseudo_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>
+  <span class="nv">wfcdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>
+  <span class="nv">tprnfor</span> <span class="o">=</span> .true.
+  <span class="nv">tstress</span> <span class="o">=</span> .true.
+  <span class="nv">verbosity</span> <span class="o">=</span> <span class="s1">&#39;high&#39;</span>
+  <span class="nv">wf_collect</span> <span class="o">=</span> .false.
+/
+<span class="p">&amp;</span>SYSTEM
+  <span class="nv">ecutwfc</span> <span class="o">=</span>   <span class="m">4</span>.0000000000d+01
+  <span class="nv">ibrav</span> <span class="o">=</span> <span class="m">0</span>
+  <span class="nv">nat</span> <span class="o">=</span> <span class="m">4</span>
+  <span class="nv">ntyp</span> <span class="o">=</span> <span class="m">2</span>
+/
+<span class="p">&amp;</span>ELECTRONS
+  <span class="nv">conv_thr</span> <span class="o">=</span>   <span class="m">1</span>.0000000000d-7
+  <span class="nv">electron_maxstep</span> <span class="o">=</span> <span class="m">80</span>
+  <span class="nv">mixing_beta</span> <span class="o">=</span>   <span class="m">4</span>.0000000000d-01
+  <span class="nv">mixing_mode</span> <span class="o">=</span> <span class="s1">&#39;plain&#39;</span>
+  <span class="nv">diagonalization</span> <span class="o">=</span> <span class="s1">&#39;david&#39;</span>
+  <span class="nv">diago_david_ndim</span> <span class="o">=</span> <span class="m">8</span>
+  <span class="nv">diago_full_acc</span> <span class="o">=</span> .true.
+/
+ATOMIC_SPECIES
+B      <span class="m">10</span>.811 B.SG15.PBE.UPF
+N      <span class="m">14</span>.0067 N.SG15.PBE.UPF
+ATOMIC_POSITIONS crystal
+B            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000  ! 顺序与0-kgrid中设置相同
+B            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+K_POINTS automatic
+<span class="m">15</span> <span class="m">15</span> <span class="m">5</span> <span class="m">0</span> <span class="m">0</span> <span class="m">0</span>
+CELL_PARAMETERS angstrom
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw.x -nk <span class="m">4</span>  -in ./input <span class="p">&amp;</span>&gt; ./out
+rm ./*.wfc*
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="wfn">
+<h3>2-wfn<a class="headerlink" href="#wfn" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>input</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span> <span class="p">&amp;</span>CONTROL
+                       <span class="nv">title</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                 <span class="nv">calculation</span> <span class="o">=</span> <span class="s1">&#39;bands&#39;</span> ,
+                <span class="nv">restart_mode</span> <span class="o">=</span> <span class="s1">&#39;from_scratch&#39;</span> ,
+                  <span class="nv">wf_collect</span> <span class="o">=</span> .false. ,
+                      <span class="nv">outdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">wfcdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                  <span class="nv">pseudo_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                     <span class="nv">tstress</span> <span class="o">=</span> .false. ,
+                     <span class="nv">tprnfor</span> <span class="o">=</span> .false. ,
+ /
+ <span class="p">&amp;</span>SYSTEM
+                        <span class="nv">ibrav</span> <span class="o">=</span><span class="m">0</span>,
+                         <span class="nv">nat</span> <span class="o">=</span> <span class="m">4</span>,
+                        <span class="nv">ntyp</span> <span class="o">=</span> <span class="m">2</span>,
+                       <span class="nv">ecutwfc</span> <span class="o">=</span><span class="m">40</span>,
+                       <span class="nv">nbnd</span> <span class="o">=</span> <span class="m">80</span>, !要求能带是占据态的10倍
+
+
+ /
+ <span class="p">&amp;</span>ELECTRONS
+            <span class="nv">electron_maxstep</span> <span class="o">=</span> <span class="m">100</span>
+            <span class="nv">conv_thr</span> <span class="o">=</span> <span class="m">1</span>.0d-7
+            <span class="nv">mixing_mode</span> <span class="o">=</span> <span class="s1">&#39;plain&#39;</span>
+            <span class="nv">mixing_beta</span> <span class="o">=</span> <span class="m">0</span>.4
+         <span class="nv">diagonalization</span> <span class="o">=</span> <span class="s1">&#39;david&#39;</span>
+          <span class="nv">diago_david_ndim</span> <span class="o">=</span> <span class="m">8</span>
+          <span class="nv">diago_full_acc</span> <span class="o">=</span> .true.
+/
+ATOMIC_SPECIES
+B      <span class="m">10</span>.811 B.SG15.PBE.UPF
+N      <span class="m">14</span>.0067 N.SG15.PBE.UPF
+ATOMIC_POSITIONS crystal
+B            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+B            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+CELL_PARAMETERS angstrom
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+K_POINTS crystal ! 来源于0-kgrid/WFN.out
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pp_in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>input_pw2bgw
+   <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>              ! 体系名称
+   <span class="nv">real_or_complex</span> <span class="o">=</span> <span class="m">2</span>
+   <span class="nv">wfng_flag</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_file</span> <span class="o">=</span> <span class="s1">&#39;wfn.complex&#39;</span>
+   <span class="nv">wfng_kgrid</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_nk1</span> <span class="o">=</span> <span class="m">5</span>               ! k点网格，与WFN.in设置相同
+   <span class="nv">wfng_nk2</span> <span class="o">=</span> <span class="m">5</span>               ! k点网格，与WFN.in设置相同
+   <span class="nv">wfng_nk3</span> <span class="o">=</span> <span class="m">1</span>               ! k点网格，与WFN.in设置相同
+   <span class="nv">wfng_dk1</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk2</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk3</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">rhog_flag</span> <span class="o">=</span> .true.
+   <span class="nv">rhog_file</span> <span class="o">=</span> <span class="s1">&#39;rho.cplx&#39;</span>
+   <span class="nv">vxcg_flag</span> <span class="o">=</span> .false.
+   <span class="nv">vxcg_file</span> <span class="o">=</span> <span class="s1">&#39;vxc.cplx&#39;</span>
+   <span class="nv">vxc_flag</span> <span class="o">=</span> .true.
+   <span class="nv">vxc_file</span> <span class="o">=</span> <span class="s1">&#39;vxc.dat&#39;</span>
+   <span class="nv">vxc_diag_nmin</span> <span class="o">=</span> <span class="m">4</span>
+   <span class="nv">vxc_diag_nmax</span> <span class="o">=</span> <span class="m">13</span>
+   <span class="nv">vxc_offdiag_nmin</span> <span class="o">=</span> <span class="m">0</span>
+   <span class="nv">vxc_offdiag_nmax</span> <span class="o">=</span> <span class="m">0</span>
+/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw.x -nk <span class="m">1</span>  -in ./input <span class="p">&amp;</span>&gt; ./out
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw2bgw.x -in ./pp_in <span class="p">&amp;</span>&gt; ./pp_out
+<span class="c1">#rm ./*.wfc*</span>
+<span class="c1">#rm ./*.igk*</span>
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>degeneracy_check.x程序后处理</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>degeneracy_check.x complex &gt;&gt; aa
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>aa文件分析</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>Reading eigenvalues from file wfn.complex
+Number of spins:               <span class="m">1</span>
+Number of bands:              <span class="m">80</span>
+Number of k-points:           <span class="nv">25</span>
+
+<span class="o">==</span> Degeneracy-allowed numbers of bands <span class="o">(</span><span class="k">for</span> epsilon and sigma<span class="o">)</span> <span class="o">==</span>
+           <span class="m">1</span>
+           <span class="m">2</span>
+           <span class="m">3</span>
+           <span class="m">4</span> ! 取为vxc_diag_nmin的值
+           <span class="m">6</span>
+           <span class="m">8</span>
+           <span class="m">9</span>
+          <span class="m">10</span>
+          <span class="m">11</span>
+          <span class="m">13</span>
+          <span class="m">15</span> ! 取为vxc_diag_nmax的值
+          <span class="m">16</span>
+          <span class="m">17</span>
+          <span class="m">18</span>
+          <span class="m">19</span>
+          <span class="m">20</span>
+          <span class="m">21</span>
+          <span class="m">22</span>
+          <span class="m">24</span>
+          <span class="m">26</span>
+          <span class="m">27</span>
+          <span class="m">29</span>
+          <span class="m">30</span>
+          <span class="m">32</span>
+          <span class="m">34</span>
+          <span class="m">36</span>
+          <span class="m">37</span>
+          <span class="m">38</span>
+          <span class="m">39</span>
+          <span class="m">40</span>
+          <span class="m">41</span>
+          <span class="m">43</span>
+          <span class="m">45</span>
+          <span class="m">47</span>
+          <span class="m">48</span>
+          <span class="m">50</span>
+          <span class="m">52</span>
+          <span class="m">53</span>
+          <span class="m">54</span>
+          <span class="m">55</span>
+          <span class="m">57</span>
+          <span class="m">58</span>
+          <span class="m">59</span>
+          <span class="m">61</span>
+          <span class="m">63</span>
+          <span class="m">64</span>
+          <span class="m">66</span>
+          <span class="m">68</span>
+          <span class="m">69</span>
+          <span class="m">70</span>
+          <span class="m">72</span>
+          <span class="m">74</span>
+          <span class="m">75</span>
+          <span class="m">76</span>
+          <span class="m">77</span>
+          <span class="m">78</span>
+          <span class="m">79</span>  ! 取为5-epsilon/epsilon.inp中number_bands的值，通常比总能带数小1
+Note: cannot assess whether or not highest band     <span class="m">80</span> is degenerate.
+
+<span class="o">==</span> Degeneracy-allowed numbers of valence bands <span class="o">(</span><span class="k">for</span> inteqp, kernel, and absorption<span class="o">)</span> <span class="o">==</span>
+           <span class="m">2</span>
+           <span class="m">4</span>
+           <span class="m">5</span>
+           <span class="m">6</span>
+           <span class="m">7</span>
+           <span class="nv">8</span>
+
+<span class="o">==</span> Degeneracy-allowed numbers of conduction bands <span class="o">(</span><span class="k">for</span> inteqp, kernel, and absorption<span class="o">)</span> <span class="o">==</span>
+           <span class="m">1</span>
+           <span class="m">2</span>
+           <span class="m">3</span>
+           <span class="m">5</span>
+           <span class="m">7</span>
+           <span class="m">8</span>
+           <span class="m">9</span>
+          <span class="m">10</span>
+          <span class="m">11</span>
+          <span class="m">12</span>
+          <span class="m">13</span>
+          <span class="m">14</span>
+          <span class="m">16</span>
+          <span class="m">18</span>
+          <span class="m">19</span>
+          <span class="m">21</span>
+          <span class="m">22</span>
+          <span class="m">24</span>
+          <span class="m">26</span>
+          <span class="m">28</span>
+          <span class="m">29</span>
+          <span class="m">30</span>
+          <span class="m">31</span>
+          <span class="m">32</span>
+          <span class="m">33</span>
+          <span class="m">35</span>
+          <span class="m">37</span>
+          <span class="m">39</span>
+          <span class="m">40</span>
+          <span class="m">42</span>
+          <span class="m">44</span>
+          <span class="m">45</span>
+          <span class="m">46</span>
+          <span class="m">47</span>
+          <span class="m">49</span>
+          <span class="m">50</span>
+          <span class="m">51</span>
+          <span class="m">53</span>
+          <span class="m">55</span>
+          <span class="m">56</span>
+          <span class="m">58</span>
+          <span class="m">60</span>
+          <span class="m">61</span>
+          <span class="m">62</span>
+          <span class="m">64</span>
+          <span class="m">66</span>
+          <span class="m">67</span>
+          <span class="m">68</span>
+          <span class="m">69</span>
+          <span class="m">70</span>
+          <span class="m">71</span>
+Note: cannot assess whether or not highest conduction band     <span class="m">72</span> is degenerate.
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>修改pp_in文件</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>input_pw2bgw
+   <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>
+   <span class="nv">real_or_complex</span> <span class="o">=</span> <span class="m">2</span>
+   <span class="nv">wfng_flag</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_file</span> <span class="o">=</span> <span class="s1">&#39;wfn.complex&#39;</span>
+   <span class="nv">wfng_kgrid</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_nk1</span> <span class="o">=</span> <span class="m">5</span>
+   <span class="nv">wfng_nk2</span> <span class="o">=</span> <span class="m">5</span>
+   <span class="nv">wfng_nk3</span> <span class="o">=</span> <span class="m">1</span>
+   <span class="nv">wfng_dk1</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk2</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk3</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">rhog_flag</span> <span class="o">=</span> .true.
+   <span class="nv">rhog_file</span> <span class="o">=</span> <span class="s1">&#39;rho.cplx&#39;</span>
+   <span class="nv">vxcg_flag</span> <span class="o">=</span> .false.
+   <span class="nv">vxcg_file</span> <span class="o">=</span> <span class="s1">&#39;vxc.cplx&#39;</span>
+   <span class="nv">vxc_flag</span> <span class="o">=</span> .true.
+   <span class="nv">vxc_file</span> <span class="o">=</span> <span class="s1">&#39;vxc.dat&#39;</span>
+   <span class="nv">vxc_diag_nmin</span> <span class="o">=</span> <span class="m">4</span>         ! 见Note说明
+   <span class="nv">vxc_diag_nmax</span> <span class="o">=</span> <span class="m">13</span>        ! 见Note说明
+   <span class="nv">vxc_offdiag_nmin</span> <span class="o">=</span> <span class="m">0</span>
+   <span class="nv">vxc_offdiag_nmax</span> <span class="o">=</span> <span class="m">0</span>
+/
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>vxc_diag_nmin取价带顶下约5-10条带，其中取的最下面的一条带要求与下面的带连续，例如取的最下面的带是4，则下一条必须是3</p>
+<p>vxc_diag_nmax取导带顶上约5-10条带，其中取的最上面的一条带要求与上面的带连续，例如取的最上面的带是13，则再上一条带必须是14</p>
+</div>
+<ul class="simple">
+<li><p>提交任务重新计算</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+<span class="c1"># mpirun -np 40 /home/gengzi/apps/qe-6.5/bin/pw.x -nk 1  -in ./input &amp;&gt; ./out</span>
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw2bgw.x -in ./pp_in <span class="p">&amp;</span>&gt; ./pp_out
+<span class="c1">#rm ./*.wfc*</span>
+<span class="c1">#rm ./*.igk*</span>
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="wfnq">
+<h3>3-wfnq<a class="headerlink" href="#wfnq" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>input</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span> <span class="p">&amp;</span>CONTROL
+                       <span class="nv">title</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                 <span class="nv">calculation</span> <span class="o">=</span> <span class="s1">&#39;bands&#39;</span> ,
+                <span class="nv">restart_mode</span> <span class="o">=</span> <span class="s1">&#39;from_scratch&#39;</span> ,
+                  <span class="nv">wf_collect</span> <span class="o">=</span> .false. ,
+                      <span class="nv">outdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">wfcdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                  <span class="nv">pseudo_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                     <span class="nv">tstress</span> <span class="o">=</span> .false. ,
+                     <span class="nv">tprnfor</span> <span class="o">=</span> .false. ,
+ /
+ <span class="p">&amp;</span>SYSTEM
+                        <span class="nv">ibrav</span> <span class="o">=</span><span class="m">0</span>,
+                         <span class="nv">nat</span> <span class="o">=</span> <span class="m">4</span>,
+                        <span class="nv">ntyp</span> <span class="o">=</span> <span class="m">2</span>,
+                       <span class="nv">ecutwfc</span> <span class="o">=</span><span class="m">40</span>,
+                       <span class="nv">nbnd</span> <span class="o">=</span> <span class="m">8</span>,     ! 设置为占据态数目
+
+ /
+ <span class="p">&amp;</span>ELECTRONS
+            <span class="nv">electron_maxstep</span> <span class="o">=</span> <span class="m">100</span>
+            <span class="nv">conv_thr</span> <span class="o">=</span> <span class="m">1</span>.0d-7
+            <span class="nv">mixing_mode</span> <span class="o">=</span> <span class="s1">&#39;plain&#39;</span>
+            <span class="nv">mixing_beta</span> <span class="o">=</span> <span class="m">0</span>.4
+         <span class="nv">diagonalization</span> <span class="o">=</span> <span class="s1">&#39;david&#39;</span>
+          <span class="nv">diago_david_ndim</span> <span class="o">=</span> <span class="m">8</span>
+          <span class="nv">diago_full_acc</span> <span class="o">=</span> .true.
+/
+ATOMIC_SPECIES
+B      <span class="m">10</span>.811 B.SG15.PBE.UPF
+N      <span class="m">14</span>.0067 N.SG15.PBE.UPF
+ATOMIC_POSITIONS crystal
+B            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+B            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+CELL_PARAMETERS angstrom
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+K_POINTS crystal  ! 来源于0-kgrid/WFNq.out中的k点
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pp_in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>input_pw2bgw
+   <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>             ! 体系名称
+   <span class="nv">real_or_complex</span> <span class="o">=</span> <span class="m">2</span>
+   <span class="nv">wfng_flag</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_file</span> <span class="o">=</span> <span class="s1">&#39;wfn.complex&#39;</span>
+   <span class="nv">wfng_kgrid</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_nk1</span> <span class="o">=</span> <span class="m">5</span>              ! 与WFNq.in设置相同
+   <span class="nv">wfng_nk2</span> <span class="o">=</span> <span class="m">5</span>              ! 与WFNq.in设置相同
+   <span class="nv">wfng_nk3</span> <span class="o">=</span> <span class="m">1</span>              ! 与WFNq.in设置相同
+   <span class="nv">wfng_dk1</span> <span class="o">=</span> <span class="m">0</span>.005          ! k点乘以0.001
+   <span class="nv">wfng_dk2</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk3</span> <span class="o">=</span> <span class="m">0</span>.0
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw.x -nk <span class="m">1</span>  -in ./input <span class="p">&amp;</span>&gt; ./out
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw2bgw.x -in ./pp_in <span class="p">&amp;</span>&gt; ./pp_out
+rm ./*.wfc*
+rm ./*.igk*
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="wfn-fi">
+<h3>5-wfn_fi<a class="headerlink" href="#wfn-fi" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>input</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span> <span class="p">&amp;</span>CONTROL
+                       <span class="nv">title</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                 <span class="nv">calculation</span> <span class="o">=</span> <span class="s1">&#39;bands&#39;</span> ,
+                <span class="nv">restart_mode</span> <span class="o">=</span> <span class="s1">&#39;from_scratch&#39;</span> ,
+                  <span class="nv">wf_collect</span> <span class="o">=</span> .false. ,
+                      <span class="nv">outdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">wfcdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                  <span class="nv">pseudo_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                     <span class="nv">tstress</span> <span class="o">=</span> .false. ,
+                     <span class="nv">tprnfor</span> <span class="o">=</span> .false. ,
+ /
+ <span class="p">&amp;</span>SYSTEM
+                        <span class="nv">ibrav</span> <span class="o">=</span><span class="m">0</span>,
+                         <span class="nv">nat</span> <span class="o">=</span> <span class="m">4</span>,
+                        <span class="nv">ntyp</span> <span class="o">=</span> <span class="m">2</span>,
+                       <span class="nv">ecutwfc</span> <span class="o">=</span><span class="m">40</span>,
+                       <span class="nv">nbnd</span> <span class="o">=</span> <span class="m">80</span>,        !占据态乘以10
+
+
+ /
+ <span class="p">&amp;</span>ELECTRONS
+            <span class="nv">electron_maxstep</span> <span class="o">=</span> <span class="m">100</span>
+            <span class="nv">conv_thr</span> <span class="o">=</span> <span class="m">1</span>.0d-7
+            <span class="nv">mixing_mode</span> <span class="o">=</span> <span class="s1">&#39;plain&#39;</span>
+            <span class="nv">mixing_beta</span> <span class="o">=</span> <span class="m">0</span>.4
+         <span class="nv">diagonalization</span> <span class="o">=</span> <span class="s1">&#39;david&#39;</span>
+          <span class="nv">diago_david_ndim</span> <span class="o">=</span> <span class="m">8</span>
+          <span class="nv">diago_full_acc</span> <span class="o">=</span> .true.
+/
+ATOMIC_SPECIES
+B      <span class="m">10</span>.811 B.SG15.PBE.UPF
+N      <span class="m">14</span>.0067 N.SG15.PBE.UPF
+ATOMIC_POSITIONS crystal
+B            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+B            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+CELL_PARAMETERS angstrom
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+K_POINTS crystal  ! k点来源于0-kgrid/WFN_fi.out
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pp_in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>input_pw2bgw
+   <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>
+   <span class="nv">real_or_complex</span> <span class="o">=</span> <span class="m">2</span>
+   <span class="nv">wfng_flag</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_file</span> <span class="o">=</span> <span class="s1">&#39;wfn.complex&#39;</span>
+   <span class="nv">wfng_kgrid</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_nk1</span> <span class="o">=</span> <span class="m">7</span>            ! 与WFN_fi.in设置相同
+   <span class="nv">wfng_nk2</span> <span class="o">=</span> <span class="m">7</span>            ! 与WFN_fi.in设置相同
+   <span class="nv">wfng_nk3</span> <span class="o">=</span> <span class="m">1</span>            ! 与WFN_fi.in设置相同
+   <span class="nv">wfng_dk1</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk2</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk3</span> <span class="o">=</span> <span class="m">0</span>.0
+/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw.x -nk <span class="m">1</span>  -in ./input <span class="p">&amp;</span>&gt; ./out
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw2bgw.x -in ./pp_in <span class="p">&amp;</span>&gt; ./pp_out
+rm ./*.wfc*
+rm ./*.igk*
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="wfn-fiq">
+<h3>6-wfn_fiq<a class="headerlink" href="#wfn-fiq" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>input</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span> <span class="p">&amp;</span>CONTROL
+                       <span class="nv">title</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                 <span class="nv">calculation</span> <span class="o">=</span> <span class="s1">&#39;bands&#39;</span> ,
+                <span class="nv">restart_mode</span> <span class="o">=</span> <span class="s1">&#39;from_scratch&#39;</span> ,
+                  <span class="nv">wf_collect</span> <span class="o">=</span> .false. ,
+                      <span class="nv">outdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">wfcdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                  <span class="nv">pseudo_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span> ,
+                      <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span> ,
+                     <span class="nv">tstress</span> <span class="o">=</span> .false. ,
+                     <span class="nv">tprnfor</span> <span class="o">=</span> .false. ,
+ /
+ <span class="p">&amp;</span>SYSTEM
+                        <span class="nv">ibrav</span> <span class="o">=</span><span class="m">0</span>,
+                         <span class="nv">nat</span> <span class="o">=</span> <span class="m">4</span>,
+                        <span class="nv">ntyp</span> <span class="o">=</span> <span class="m">2</span>,
+                       <span class="nv">ecutwfc</span> <span class="o">=</span><span class="m">40</span>,
+                       <span class="nv">nbnd</span> <span class="o">=</span> <span class="m">8</span>,     ! 设置为占据态
+
+ /
+ <span class="p">&amp;</span>ELECTRONS
+            <span class="nv">electron_maxstep</span> <span class="o">=</span> <span class="m">100</span>
+            <span class="nv">conv_thr</span> <span class="o">=</span> <span class="m">1</span>.0d-7
+            <span class="nv">mixing_mode</span> <span class="o">=</span> <span class="s1">&#39;plain&#39;</span>
+            <span class="nv">mixing_beta</span> <span class="o">=</span> <span class="m">0</span>.4
+         <span class="nv">diagonalization</span> <span class="o">=</span> <span class="s1">&#39;david&#39;</span>
+          <span class="nv">diago_david_ndim</span> <span class="o">=</span> <span class="m">8</span>
+          <span class="nv">diago_full_acc</span> <span class="o">=</span> .true.
+/
+ATOMIC_SPECIES
+B      <span class="m">10</span>.811 B.SG15.PBE.UPF
+N      <span class="m">14</span>.0067 N.SG15.PBE.UPF
+ATOMIC_POSITIONS crystal
+B            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+B            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+CELL_PARAMETERS angstrom
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+K_POINTS crystal   ! k点来源于0-kgrid/WFN_fiq.out
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pp_in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>input_pw2bgw
+   <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>
+   <span class="nv">real_or_complex</span> <span class="o">=</span> <span class="m">2</span>
+   <span class="nv">wfng_flag</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_file</span> <span class="o">=</span> <span class="s1">&#39;wfn.complex&#39;</span>
+   <span class="nv">wfng_kgrid</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_nk1</span> <span class="o">=</span> <span class="m">7</span>            ! 与WFN_fiq.in设置相同
+   <span class="nv">wfng_nk2</span> <span class="o">=</span> <span class="m">7</span>            ! 与WFN_fiq.in设置相同
+   <span class="nv">wfng_nk3</span> <span class="o">=</span> <span class="m">1</span>            ! 与WFN_fiq.in设置相同
+   <span class="nv">wfng_dk1</span> <span class="o">=</span> <span class="m">0</span>.007        ! k点乘以0.001
+   <span class="nv">wfng_dk2</span> <span class="o">=</span> <span class="m">0</span>.007        ! k点乘以0.001
+   <span class="nv">wfng_dk3</span> <span class="o">=</span> <span class="m">0</span>.0
+/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务的脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw.x -nk <span class="m">1</span>  -in ./input <span class="p">&amp;</span>&gt; ./out
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw2bgw.x -in ./pp_in <span class="p">&amp;</span>&gt; ./pp_out
+rm ./*.wfc*
+rm ./*.igk*
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="band">
+<h3>7-band<a class="headerlink" href="#band" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>input</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>CONTROL
+  <span class="nv">calculation</span> <span class="o">=</span> <span class="s1">&#39;bands&#39;</span>
+  <span class="nv">etot_conv_thr</span> <span class="o">=</span>   <span class="m">4</span>.0000000000d-05
+  <span class="nv">forc_conv_thr</span> <span class="o">=</span>   <span class="m">1</span>.0000000000d-04
+  <span class="nv">outdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>
+  <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>
+  <span class="nv">pseudo_dir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>
+  <span class="nv">wfcdir</span> <span class="o">=</span> <span class="s1">&#39;./&#39;</span>
+  <span class="nv">tprnfor</span> <span class="o">=</span> .false.
+  <span class="nv">tstress</span> <span class="o">=</span> .false.
+  <span class="nv">verbosity</span> <span class="o">=</span> <span class="s1">&#39;high&#39;</span>
+  <span class="nv">wf_collect</span> <span class="o">=</span> .false.
+/
+<span class="p">&amp;</span>SYSTEM
+  <span class="nv">ecutwfc</span> <span class="o">=</span>   <span class="m">4</span>.0000000000d+01
+  <span class="nv">ibrav</span> <span class="o">=</span> <span class="m">0</span>
+  <span class="nv">nat</span> <span class="o">=</span> <span class="m">4</span>
+  <span class="nv">ntyp</span> <span class="o">=</span> <span class="m">2</span>
+  <span class="nv">nbnd</span> <span class="o">=</span> <span class="m">80</span>                   ! 占据态乘以10
+/
+<span class="p">&amp;</span>ELECTRONS
+  <span class="nv">conv_thr</span> <span class="o">=</span>   <span class="m">1</span>.0000000000d-7
+  <span class="nv">electron_maxstep</span> <span class="o">=</span> <span class="m">80</span>
+  <span class="nv">mixing_beta</span> <span class="o">=</span>   <span class="m">4</span>.0000000000d-01
+  <span class="nv">mixing_mode</span> <span class="o">=</span> <span class="s1">&#39;plain&#39;</span>
+  <span class="nv">diagonalization</span> <span class="o">=</span> <span class="s1">&#39;david&#39;</span>
+  <span class="nv">diago_david_ndim</span> <span class="o">=</span> <span class="m">8</span>
+  <span class="nv">diago_full_acc</span> <span class="o">=</span> .true.
+/
+ATOMIC_SPECIES
+B      <span class="m">10</span>.811 B.SG15.PBE.UPF
+N      <span class="m">14</span>.0067 N.SG15.PBE.UPF
+ATOMIC_POSITIONS crystal
+B            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.7500000000
+B            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.6666666700       <span class="m">0</span>.3333333300       <span class="m">0</span>.2500000000
+N            <span class="m">0</span>.3333333300       <span class="m">0</span>.6666666700       <span class="m">0</span>.7500000000
+CELL_PARAMETERS angstrom
+      <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000
+     -1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000
+      <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000
+
+K_POINTS crystal <span class="o">{</span>crystal_b<span class="o">}</span> ! 能带计算的高对称点路径
+  <span class="m">4</span>
+  <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span>  <span class="m">50</span>
+  <span class="m">0</span>.5    <span class="m">0</span>      <span class="m">0</span>  <span class="m">50</span>
+  <span class="m">0</span>.3333 <span class="m">0</span>.3333 <span class="m">0</span>  <span class="m">50</span>
+  <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span>  <span class="m">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>pp_in</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="p">&amp;</span>input_pw2bgw
+   <span class="nv">prefix</span> <span class="o">=</span> <span class="s1">&#39;BN&#39;</span>
+   <span class="nv">real_or_complex</span> <span class="o">=</span> <span class="m">2</span>
+   <span class="nv">wfng_flag</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_file</span> <span class="o">=</span> <span class="s1">&#39;wfn.complex&#39;</span>
+   <span class="nv">wfng_kgrid</span> <span class="o">=</span> .true.
+   <span class="nv">wfng_nk1</span> <span class="o">=</span> <span class="m">0</span>
+   <span class="nv">wfng_nk2</span> <span class="o">=</span> <span class="m">0</span>
+   <span class="nv">wfng_nk3</span> <span class="o">=</span> <span class="m">0</span>
+   <span class="nv">wfng_dk1</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk2</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_dk3</span> <span class="o">=</span> <span class="m">0</span>.0
+   <span class="nv">wfng_occupation</span><span class="o">=</span>.ture
+   <span class="nv">wfng_nvmin</span><span class="o">=</span><span class="m">1</span>          ! 价带最小值，一般设置为1
+   <span class="nv">wfng_nvmax</span><span class="o">=</span> <span class="m">8</span>         ! 价带最大值，也就是占据态
+/
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/parallel_studio_xe_2019/psxevars.sh
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw.x -nk <span class="m">1</span>  -in ./input <span class="p">&amp;</span>&gt; ./out
+mpirun -np <span class="m">40</span> /home/gengzi/apps/qe-6.5/bin/pw2bgw.x -in ./pp_in <span class="p">&amp;</span>&gt; ./pp_out
+rm ./*.wfc*
+rm ./*.igk*
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+</section>
+<section id="berkeleygw">
+<h2>BerkeleyGW计算<a class="headerlink" href="#berkeleygw" title="永久链接至标题"></a></h2>
+<section id="epsilon">
+<h3>5-epsilon<a class="headerlink" href="#epsilon" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>epsilon.inp</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>epsilon_cutoff <span class="m">10</span>          ! 不需要修改
+number_bands <span class="m">79</span>            ! 取2-wfn/aa中能带的最大值
+band_occupation <span class="m">8</span>*1 <span class="m">71</span>*0   ! 价带*1，导带*0
+cell_slab_truncation
+
+begin qpoints ! 来源于WFN.out，最后加1列，第一行为1，其余都是0
+  <span class="m">0</span>.001000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">1</span> ! 第一个数改为0.001
+  <span class="m">0</span>.000000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+end
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/mkl/bin/mklvars.sh intel64
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/gengzi/apps/openmpi404/bin
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/home/gengzi/apps/openmpi404/lib
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/BerkeleyGW-2.1/bin/epsilon.cplx.x <span class="p">&amp;</span>&gt; ./OUT.eps
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="sigma">
+<h3>6-sigma<a class="headerlink" href="#sigma" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>sigma.inp</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>screened_coulomb_cutoff <span class="m">10</span>
+bare_coulomb_cutoff <span class="m">70</span>
+
+number_bands <span class="m">79</span>
+band_occupation <span class="m">8</span>*1 <span class="m">71</span>*0
+<span class="c1">#frequency_dependence 1</span>
+<span class="c1">#no_symmetries_q_grid</span>
+band_index_min  <span class="m">4</span>  ! 取为2-wfn/pp_in中的vxc_diag_nmin值
+band_index_max  <span class="m">13</span> ! 取为2-wfn/pp_in中的vxc_diag_nmax值
+cell_slab_truncation
+
+screening_semiconductor
+begin kpoints ! k点来源于WFN.out，最后加一列，第一行为1，其余都是0
+  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">1</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.000000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.200000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.400000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.600000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.200000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.400000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.600000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+  <span class="m">0</span>.800000000  <span class="m">0</span>.800000000  <span class="m">0</span>.000000000   <span class="m">1</span>.0 <span class="m">0</span>
+end
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/mkl/bin/mklvars.sh intel64
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/gengzi/apps/openmpi404/bin
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/home/gengzi/apps/openmpi404/lib
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/BerkeleyGW-2.1/bin/sigma.cplx.x <span class="p">&amp;</span>&gt; ./OUT.eps
+
+python eqp.py  eqp1  sigma_hp.log ../8-absorption/eqp_co.dat
+python eqp.py  eqp1  sigma_hp.log ../9-inteqp/eqp_co.dat
+
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>eqp.py脚本位于安装文件bin文件夹中，使用python3环境</p>
+</div>
+</section>
+<section id="kernel">
+<h3>7-kernel<a class="headerlink" href="#kernel" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>kernel.inp</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>number_val_bands  <span class="m">5</span> ! 画图时包含的价带数
+number_cond_bands <span class="m">5</span> ! 画图时包含的导带数
+
+screened_coulomb_cutoff <span class="m">10</span>
+bare_coulomb_cutoff  <span class="m">70</span>
+
+use_symmetries_coarse_grid
+
+screening_semiconductor
+cell_slab_truncation
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/mkl/bin/mklvars.sh intel64
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/gengzi/apps/openmpi404/bin
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/home/gengzi/apps/openmpi404/lib
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/BerkeleyGW-2.1/bin/kernel.cplx.x <span class="p">&amp;</span>&gt; ./OUT.eps
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="absorption">
+<h3>8-absorption<a class="headerlink" href="#absorption" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>absorption.inp</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>number_val_bands_coarse <span class="m">5</span>  ! 画图时包含的价带数
+number_val_bands_fine <span class="m">5</span>    ! 画图时包含的价带数
+number_cond_bands_coarse <span class="m">5</span> ! 画图时包含的导带数
+number_cond_bands_fine <span class="m">5</span>   ! 画图时包含的导带数
+
+use_symmetries_fine_grid
+use_symmetries_shifted_grid
+use_symmetries_coarse_grid
+diagonalization
+screening_semiconductor
+cell_slab_truncation
+<span class="c1">#use_velocity</span>
+
+eqp_co_corrections
+<span class="c1">#q_shift 0.0006 0.0006 0.000</span>
+use_momentum
+polarization <span class="m">1</span>.0 <span class="m">0</span>.0 <span class="m">0</span>.0
+
+energy_resolution <span class="m">0</span>.05
+gaussian_broadening
+<span class="c1">#write_eigenvectors 10</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/mkl/bin/mklvars.sh intel64
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/gengzi/apps/openmpi404/bin
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/home/gengzi/apps/openmpi404/lib
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/BerkeleyGW-2.1/bin/absorption.cplx.x <span class="p">&amp;</span>&gt; ./OUT.eps
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+</section>
+<section id="inteqp">
+<h3>9-inteqp<a class="headerlink" href="#inteqp" title="永久链接至标题"></a></h3>
+<ul class="simple">
+<li><p>inteqp.inp</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>number_val_bands_coarse <span class="m">5</span>  ! 画图时包含的价带数
+number_val_bands_fine <span class="m">5</span>    ! 画图时包含的价带数
+number_cond_bands_coarse <span class="m">5</span> ! 画图时包含的导带数
+number_cond_bands_fine <span class="m">5</span>   ! 画图时包含的导带数
+
+<span class="c1">#use_symmetries_fine_grid</span>
+<span class="c1">#no_symmetries_shifted_grid</span>
+<span class="c1">#use_symmetries_coarse_grid</span>
+use_momentum
+<span class="c1">#comm_mpi</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务脚本</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/sh</span>
+<span class="c1">#PBS -N hey</span>
+<span class="c1">#PBS -l nodes=1:ppn=40,walltime=500:00:00</span>
+<span class="c1">##PBS -q workq</span>
+
+<span class="nb">cd</span> <span class="nv">$PBS_O_WORKDIR</span>
+<span class="nb">source</span> /home/gengzi/apps/intel/19/mkl/bin/mklvars.sh intel64
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:/home/gengzi/apps/openmpi404/bin
+<span class="nb">export</span> <span class="nv">LD_LIBRARY_PATH</span><span class="o">=</span><span class="nv">$LD_LIBRARY_PATH</span>:/home/gengzi/apps/openmpi404/lib
+
+date <span class="s2">&quot;+01 Today&#39;s date is: %D. The time execution %T&quot;</span> &gt;&gt; time.info
+mpirun -np <span class="m">40</span> /home/gengzi/apps/BerkeleyGW-2.1/bin/inteqp.cplx.x <span class="p">&amp;</span>&gt; ./OUT.inteqp
+date <span class="s2">&quot;+02 Today&#39;s date is: %D. The time finish %T&quot;</span> &gt;&gt; time.info
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>提交任务完成计算，得到`bandstructure.dat`文件</p></li>
+</ul>
+</section>
+</section>
+<section id="id2">
+<h2>数据处理<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
+<ul class="simple">
+<li><p>kline.py (刘仕明开发)</p></li>
+<li><p>klable.txt</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span> <span class="m">2</span>.5124282300       <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000 !晶格常数
+-1.2562141150       <span class="m">2</span>.1758266724       <span class="m">0</span>.0000000000 !晶格常数
+ <span class="m">0</span>.0000000000       <span class="m">0</span>.0000000000       <span class="m">7</span>.7072650000 !晶格常数
+ <span class="m">4</span> ! 能带路径设置
+ <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span>  <span class="m">50</span>
+ <span class="m">0</span>.5    <span class="m">0</span>      <span class="m">0</span>  <span class="m">50</span>
+ <span class="m">0</span>.3333 <span class="m">0</span>.3333 <span class="m">0</span>  <span class="m">50</span>
+ <span class="m">0</span>      <span class="m">0</span>      <span class="m">0</span>  <span class="m">0</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>bandstructure.dat</p></li>
+<li><p>运行脚本</p></li>
+</ul>
+<div class="highlight-Python notranslate"><div class="highlight"><pre><span></span><span class="n">python3</span> <span class="n">kline</span><span class="o">.</span><span class="n">py</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><p>得到kline.dat文件，画图即可</p></li>
+</ul>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../vasp/formation_energy.html" class="btn btn-neutral float-left" title="Formation Energy Calculation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../epw/basic.html" class="btn btn-neutral float-right" title="NSCF Kpoints" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

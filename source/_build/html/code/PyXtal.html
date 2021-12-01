@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="zh-CN" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PyXtal程序: 晶体结构生成和对称性分析 &mdash; Physics 1.00 文档</title>
+      <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+    <link rel="shortcut icon" href="../_static/favicon.png"/>
+  <!--[if lt IE 9]>
+    <script src="../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+        <script src="../_static/jquery.js"></script>
+        <script src="../_static/underscore.js"></script>
+        <script src="../_static/doctools.js"></script>
+        <script src="../_static/translations.js"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="next" title="Irvsp程序：计算VASP中电子态的不可约表示" href="Irvsp.html" />
+    <link rel="prev" title="Nonrad程序: 计算载流子非辐射捕获系数" href="Nonrad.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="../index.html" class="icon icon-home"> Physics
+            <img src="../_static/logo.png" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="在文档中搜索" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../code.html">Code list</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="../code.html#pydefect">pydefect</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code.html#nonrad">Nonrad</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../code.html#pyxtal">PyXtal</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">PyXtal程序: 晶体结构生成和对称性分析</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../code.html#irvsp">Irvsp</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../code.html#phonopy">phonopy</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../compile.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../note.html">Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database.html">database</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">Physics</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home"></a> &raquo;</li>
+          <li><a href="../code.html">Code list</a> &raquo;</li>
+      <li>PyXtal程序: 晶体结构生成和对称性分析</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/code/PyXtal.rst.txt" rel="nofollow"> 查看页面源码</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="pyxtal">
+<h1>PyXtal程序: 晶体结构生成和对称性分析<a class="headerlink" href="#pyxtal" title="永久链接至标题"></a></h1>
+<p><strong>介绍</strong></p>
+<p>内华达大学物理与天文学系的助理教授 <strong>ZHu Qiang</strong> <a class="reference external" href="https://qzhu2017.github.io">课题组</a> 开发了 <strong>PyXtal</strong>,这是一个基于Python编程语言的新软件包，用于为原子和分子系统生成具有特定对称性和化学成分的结构。该软件为各种体系提供支持，只需输入化学成分和对称基团信息，PyXtal便可以通过逐步合并方案自动找到Wyckoff位置的合适组合。此外，当给出分子几何结构时，PyXtal可以生成具有不同维度的有机晶体，且分子占据了一般和特殊的Wyckoff位置。PyXtal也可以选择接受用户定义的参数(例如，晶胞参数、最小距离和Wyckoff位置)。通常， <strong>PyXtal具有三个功能</strong>：</p>
+<ol class="arabic simple">
+<li><p>生成自定义结构</p></li>
+<li><p>通过对称关系来调制结构</p></li>
+<li><p>连接需要生成随机对称结构的现有结构预测代码</p></li>
+</ol>
+<p>此外，我们提供了一些实用程序，可简化结构分析，包括对称性分析、几何优化和粉末X射线衍射(XRD)的模拟。</p>
+<ul class="simple">
+<li><p>PyXtal内部原理框架：</p></li>
+</ul>
+<img alt="../_images/20210204001.png" src="../_images/20210204001.png" />
+<ul class="simple">
+<li><p>PyXtal下载链接：<a class="reference download external" download="" href="https://github.com/qzhu2017/PyXtal"><code class="xref download docutils literal notranslate"><span class="pre">Github</span></code></a></p></li>
+<li><p>PyXtal主页</p></li>
+</ul>
+<img alt="../_images/20210204002.png" src="../_images/20210204002.png" />
+<ul class="simple">
+<li><p>PyXtal官方文档: <a class="reference external" href="https://pyxtal.readthedocs.io/en/latest/">Document</a></p></li>
+<li><p>官方文档</p></li>
+</ul>
+<img alt="../_images/20210204003.png" src="../_images/20210204003.png" />
+<ul class="simple">
+<li><p>参考文献</p></li>
+</ul>
+<img alt="../_images/20210204004.png" src="../_images/20210204004.png" />
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="Nonrad.html" class="btn btn-neutral float-left" title="Nonrad程序: 计算载流子非辐射捕获系数" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="Irvsp.html" class="btn btn-neutral float-right" title="Irvsp程序：计算VASP中电子态的不可约表示" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; 版权所有 2021, Yong He.</p>
+  </div>
+
+  利用 <a href="https://www.sphinx-doc.org/">Sphinx</a> 构建，使用了 
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">主题</a>
+    由 <a href="https://readthedocs.org">Read the Docs</a>开发.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

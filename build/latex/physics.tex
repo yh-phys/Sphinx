@@ -88,7 +88,7 @@
 
 
 \title{Physics}
-\date{2021 年 11 月 27 日}
+\date{2021 年 12 月 01 日}
 \release{1.00}
 \author{Yong He}
 \newcommand{\sphinxlogo}{\sphinxincludegraphics{logo.png}\par}
@@ -3345,6 +3345,111 @@ omicron
 pip install \PYGZhy{}\PYGZhy{}upgrade \PYGZhy{}\PYGZhy{}user ase
 pip install \PYGZhy{}\PYGZhy{}upgrade \PYGZhy{}\PYGZhy{}user ase\PYG{o}{[}test\PYG{o}{]}
 \end{sphinxVerbatim}
+
+
+\chapter{Note}
+\label{\detokenize{note:note}}\label{\detokenize{note::doc}}
+
+\section{Python}
+\label{\detokenize{note:python}}
+
+\subsection{Numpy}
+\label{\detokenize{note/python/numpy:numpy}}\label{\detokenize{note/python/numpy::doc}}
+
+\subsubsection{常见函数说明}
+\label{\detokenize{note/python/numpy:id1}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+np.linspace 主要用来创建 \sphinxstylestrong{等差数列}
+
+\end{itemize}
+
+\begin{sphinxadmonition}{attention}{注意:}
+\sphinxAtStartPar
+numpy.linspace(start, stop, num=50, endpoint=True, retstep=False, dtype=None, axis=0)
+
+\sphinxAtStartPar
+Return evenly spaced numbers over a specified interval.(在start和stop之间返回均匀间隔的数据)
+
+\sphinxAtStartPar
+Returns num evenly spaced samples, calculated over the interval {[}start, stop{]}.
+
+\sphinxAtStartPar
+(返回的是 {[}start, stop{]}之间的均匀分布)
+
+\sphinxAtStartPar
+The endpoint of the interval can optionally be excluded.
+
+\sphinxAtStartPar
+Changed in version 1.16.0: Non\sphinxhyphen{}scalar start and stop are now supported. (可以选择是否排除间隔的终点)
+\end{sphinxadmonition}
+
+\begin{sphinxadmonition}{important}{重要:}
+\sphinxAtStartPar
+start:返回样本数据开始点
+
+\sphinxAtStartPar
+stop:返回样本数据结束点
+
+\sphinxAtStartPar
+num:生成的样本数据量，默认为50
+
+\sphinxAtStartPar
+endpoint：True则包含stop；False则不包含stop
+
+\sphinxAtStartPar
+retstep：If True, return (samples, step), where step is the spacing between samples.(即如果为True则结果会给出数据间隔)
+
+\sphinxAtStartPar
+dtype：输出数组类型
+
+\sphinxAtStartPar
+axis：0(默认)或\sphinxhyphen{}1
+\end{sphinxadmonition}
+
+
+\subsection{Matplotlib}
+\label{\detokenize{note/python/matplotlib:matplotlib}}\label{\detokenize{note/python/matplotlib::doc}}
+
+\subsubsection{常用命令说明}
+\label{\detokenize{note/python/matplotlib:id1}}\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+plt.legend() 显示 \sphinxstylestrong{图例}，需要放到画图参数后面
+
+\item {} 
+\sphinxAtStartPar
+plt.savefig(‘name.png’, dpi = 300, bbox\_inches = ‘tight’, facecolor=’w’)
+
+\end{itemize}
+
+\begin{sphinxadmonition}{attention}{注意:}
+\sphinxAtStartPar
+name.png 指定图片格式
+
+\sphinxAtStartPar
+dpi 设置分辨率
+
+\sphinxAtStartPar
+bbox\_inches 是否保留外部的空白区域，一般设置为 \sphinxstylestrong{tight}
+
+\sphinxAtStartPar
+facecolor 设置背景颜色
+\end{sphinxadmonition}
+\begin{itemize}
+\item {} 
+\sphinxAtStartPar
+plt.figure(figsize=(4, 5)) 创建画布
+
+\end{itemize}
+
+\begin{sphinxadmonition}{attention}{注意:}
+\sphinxAtStartPar
+figsize 画布尺寸，单位为英寸
+
+\sphinxAtStartPar
+plt.gca() 获得当前的Axes对象ax
+\end{sphinxadmonition}
 
 
 \chapter{database}

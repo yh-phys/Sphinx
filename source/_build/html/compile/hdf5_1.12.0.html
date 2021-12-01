@@ -43,6 +43,7 @@
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../welcome.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Code list</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../compile.html">Installation</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#libbeef">libbeef</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#libxc">libxc</a></li>
@@ -57,9 +58,12 @@
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#quantum-espresso">Quantum-ESPRESSO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#abinit">ABINIT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#yambo">Yambo</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#berkeleygw">BerkeleyGW</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../note.html">Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../database.html">database</a></li>
 </ul>
 
         </div>
@@ -92,33 +96,35 @@
 <section id="download">
 <h2>Download<a class="headerlink" href="#download" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
-<li><p>Download <a class="reference download external" download="" href="http://www.tddft.org/programs/libxc/down.php?file=4.3.4/libxc-4.3.4.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">4.3.4</span></code></a> of libxc.</p></li>
+<li><p>Download <a class="reference download external" download="" href="https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">1.12.0</span></code></a> of HDF5.</p></li>
 </ol>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget http://www.tddft.org/programs/libxc/down.php?file<span class="o">=</span><span class="m">4</span>.3.4/libxc-4.3.4.tar.gz
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.12/hdf5-1.12.0/src/hdf5-1.12.0.tar.gz
 </pre></div>
 </div>
 </section>
 <section id="compile">
 <h2>Compile<a class="headerlink" href="#compile" title="永久链接至标题"></a></h2>
 <ol class="arabic simple">
-<li><p>Create configure file compile.sh</p></li>
+<li><p>Create configure file configure.sh</p></li>
 </ol>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>./configure --prefix<span class="o">=</span>/opt/software/libxc-4.3.4/bin <span class="se">\</span>
-    <span class="nv">AR</span><span class="o">=</span>ar <span class="se">\</span>
-    <span class="nv">FC</span><span class="o">=</span>ifort <span class="se">\</span>
-    <span class="nv">F77</span><span class="o">=</span>ifort <span class="se">\</span>
-    <span class="nv">F90</span><span class="o">=</span>ifort <span class="se">\</span>
-    <span class="nv">CC</span><span class="o">=</span>icc
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+
+    ./configure <span class="nv">CC</span><span class="o">=</span>mpiicc <span class="nv">FC</span><span class="o">=</span>mpiifort <span class="nv">CXX</span><span class="o">=</span>mpiicpc <span class="se">\</span>
+    --enable-fortran <span class="se">\</span>
+    --enable-parallel <span class="se">\</span>
+    --enable-shared <span class="se">\</span>
+    --prefix<span class="o">=</span>/opt/software/hdf5-1.12.0 <span class="se">\</span>
+    --with-zlib<span class="o">=</span>/opt/software/zlib-1.2.11
 </pre></div>
 </div>
 <ol class="arabic simple" start="2">
-<li><p>configure libxc</p></li>
+<li><p>configure HDF5</p></li>
 </ol>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash compile.sh
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>bash configure.sh
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>compile and test yambo</p></li>
+<li><p>compile and test HDF5</p></li>
 </ol>
 <div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>make <span class="o">&amp;&amp;</span> make check <span class="o">&amp;&amp;</span> make Install
 </pre></div>

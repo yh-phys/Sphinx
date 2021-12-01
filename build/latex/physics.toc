@@ -85,7 +85,13 @@
 \contentsline {subsection}{\numberline {4.6.1}希腊字母表}{62}{subsection.4.6.1}%
 \contentsline {section}{\numberline {4.7}Atomic Simulation Environment (ASE)}{62}{section.4.7}%
 \contentsline {subsection}{\numberline {4.7.1}Install}{62}{subsection.4.7.1}%
-\contentsline {chapter}{\numberline {5}database}{63}{chapter.5}%
-\contentsline {section}{\numberline {5.1}无机材料数据库}{63}{section.5.1}%
-\contentsline {subsection}{\numberline {5.1.1}三维材料数据库}{63}{subsection.5.1.1}%
-\contentsline {chapter}{\numberline {6}Indices and tables}{65}{chapter.6}%
+\contentsline {chapter}{\numberline {5}Note}{63}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Python}{63}{section.5.1}%
+\contentsline {subsection}{\numberline {5.1.1}Numpy}{63}{subsection.5.1.1}%
+\contentsline {subsubsection}{常见函数说明}{63}{subsubsection*.47}%
+\contentsline {subsection}{\numberline {5.1.2}Matplotlib}{64}{subsection.5.1.2}%
+\contentsline {subsubsection}{常用命令说明}{64}{subsubsection*.48}%
+\contentsline {chapter}{\numberline {6}database}{65}{chapter.6}%
+\contentsline {section}{\numberline {6.1}无机材料数据库}{65}{section.6.1}%
+\contentsline {subsection}{\numberline {6.1.1}三维材料数据库}{65}{subsection.6.1.1}%
+\contentsline {chapter}{\numberline {7}Indices and tables}{67}{chapter.7}%

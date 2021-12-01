@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>前言 &mdash; Physics 1.00 文档</title>
+  <title>Mobility Calculation &mdash; Physics 1.00 文档</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/favicon.png"/>
@@ -17,11 +17,11 @@
         <script src="../../_static/underscore.js"></script>
         <script src="../../_static/doctools.js"></script>
         <script src="../../_static/translations.js"></script>
-        <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+        <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../../genindex.html" />
     <link rel="search" title="搜索" href="../../search.html" />
-    <link rel="next" title="Basic Module" href="../pymatgen/basic.html" />
+    <link rel="next" title="Formation Energy Calculation" href="formation_energy.html" />
     <link rel="prev" title="Tutorials" href="../../tutorial.html" /> 
 </head>
 
@@ -44,24 +44,29 @@
               <p class="caption" role="heading"><span class="caption-text">Contents</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../../welcome.html">Overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../code.html">Code list</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../compile.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="../../tutorial.html">Tutorials</a><ul class="current">
 <li class="toctree-l2 current"><a class="reference internal" href="../../tutorial.html#vasp">VASP</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">前言</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id2">理论基础</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#id3">计算与数据处理工具</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#inse">二维InSe有效质量计算过程</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#id5">建模</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#id6">能带计算</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Mobility Calculation</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id1">理论基础</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id2">计算与数据处理工具</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#inse">二维InSe有效质量计算过程</a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="formation_energy.html">Formation Energy Calculation</a></li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#berkeleygw">BerkeleyGW</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#quantum-espresso">Quantum-ESPRESSO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#epw">EPW</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#pymatgen">pymatgen</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#gnuplot">Gnuplot</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../../tutorial.html#atomic-simulation-environment-ase">Atomic Simulation Environment (ASE)</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../../note.html">Note</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../database.html">database</a></li>
 </ul>
 
         </div>
@@ -79,7 +84,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
           <li><a href="../../tutorial.html">Tutorials</a> &raquo;</li>
-      <li>前言</li>
+      <li>Mobility Calculation</li>
       <li class="wy-breadcrumbs-aside">
             <a href="../../_sources/tutorials/vasp/mobility.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
@@ -89,14 +94,13 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="id1">
-<h1>前言<a class="headerlink" href="#id1" title="永久链接至标题"></a></h1>
+  <section id="mobility-calculation">
+<h1>Mobility Calculation<a class="headerlink" href="#mobility-calculation" title="永久链接至标题"></a></h1>
 <p>载流子迁移率通常指半导体内部电子和空穴整体的运动快慢情况，是衡量半导体器件性能的重要物理量。2004年，石墨烯的成功剥离引起了研究人员对于二维材料性质探索的浓厚兴趣。石墨烯、黑磷等二维材料展现出的高载流子迁移率是其中的一个重要研究课题，科研人员在理论计算方面已经做了大量的工作。由于电子在运动过程中不仅受到外电场力的作用，还会不断的与晶格、杂质、缺陷等发生无规则的碰撞，大大增加了理论计算的难度。</p>
 <p>目前计算载流子迁移率比较常用的理论是形变势理论和玻尔兹曼输运理论，前者没有考虑电子和声子（晶格振动）以及电子与电子之间的相互作用等因素，计算结果存在一定的误差，但笔者的计算结果与实验值在数量级上是吻合的；玻尔兹曼输运理论的一种计算考虑了电子-声子的相互作用，基于第一性原理计算和最大局域化wannier函数插值方法，借助于 <a class="reference external" href="http://www.quantum-espresso.org/">Quantum-ESPRESSO</a> 和 <a class="reference external" href="https://epw-code.org/">EPW</a> 软件可以完成载流子迁移率计算。缺点是计算量太大，一般的课题组很难承受起高昂的计算费用，另外EPW软件对于二维材料的计算存在部分问题，在其官方论坛也有讨论，计算过程在后续文章中会提到。</p>
 <p>本文以形变势理论方法为基础，详细介绍了二维InSe的电子和空穴的有效质量与载流子迁移率的计算方法。</p>
-</section>
-<section id="id2">
-<h1>理论基础<a class="headerlink" href="#id2" title="永久链接至标题"></a></h1>
+<section id="id1">
+<h2>理论基础<a class="headerlink" href="#id1" title="永久链接至标题"></a></h2>
 <p>基于 <a class="reference external" href="https://doi.org/10.1103/PhysRev.80.72">Bardeen and Shockley</a> 提出的形变势理论，二维材料载流子迁移率可以根据下式计算：</p>
 <div class="math notranslate nohighlight">
 \[\mu_{\rm 2D} = \frac{e\hbar^3C_{2D}}{k_BTm^{\ast}m_dE_1^2}\]</div>
@@ -121,8 +125,8 @@
 \[= 10^4 \times cm^2 \cdot s^{-1} \cdot V^{-1}\]</div>
 <p>其中： <span class="math notranslate nohighlight">\(1 V = 1 J/C\)</span> ， <span class="math notranslate nohighlight">\(1 J = 1Kg \cdot m^2 / s^2\)</span></p>
 </section>
-<section id="id3">
-<h1>计算与数据处理工具<a class="headerlink" href="#id3" title="永久链接至标题"></a></h1>
+<section id="id2">
+<h2>计算与数据处理工具<a class="headerlink" href="#id2" title="永久链接至标题"></a></h2>
 <div class="line-block">
 <div class="line">VASP.5.4.4软件 (可以手动控制优化晶格方向)</div>
 <div class="line">OriginLab软件</div>
@@ -259,18 +263,18 @@
 </div>
 </section>
 <section id="inse">
-<h1>二维InSe有效质量计算过程<a class="headerlink" href="#inse" title="永久链接至标题"></a></h1>
-<section id="id5">
-<h2>建模<a class="headerlink" href="#id5" title="永久链接至标题"></a></h2>
+<h2>二维InSe有效质量计算过程<a class="headerlink" href="#inse" title="永久链接至标题"></a></h2>
+<section id="id4">
+<h3>建模<a class="headerlink" href="#id4" title="永久链接至标题"></a></h3>
 <p>由于计算过程中需要对二维InSe施加应变，但二维InSe原胞是六角结构，不容易施加应变。但是侯柱峰老师讲了对石墨烯原胞施加应变的方法，笔者认为虽然可行，但过于繁琐，故不采用此法。我们可以利用根号建模的方法讲六角结构InSe原胞变为方形结构的InSe超胞，然后施加应变可大大提高操作效率，但计算量的增加在可接受范围之内。下面给出关键的建模步骤，更多的根号建模部分可参考我的往期博客文章。</p>
 <figure class="align-default">
 <img alt="../../_images/2D-InSe-mobility.png" src="../../_images/2D-InSe-mobility.png" />
 </figure>
 </section>
+<section id="id5">
+<h3>能带计算<a class="headerlink" href="#id5" title="永久链接至标题"></a></h3>
 <section id="id6">
-<h2>能带计算<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
-<section id="id7">
-<h3>结构优化<a class="headerlink" href="#id7" title="永久链接至标题"></a></h3>
+<h4>结构优化<a class="headerlink" href="#id6" title="永久链接至标题"></a></h4>
 <div class="line-block">
 <div class="line">INCAR</div>
 </div>
@@ -344,8 +348,8 @@ Direct
 </pre></div>
 </div>
 </section>
-<section id="id8">
-<h3>静态自洽<a class="headerlink" href="#id8" title="永久链接至标题"></a></h3>
+<section id="id7">
+<h4>静态自洽<a class="headerlink" href="#id7" title="永久链接至标题"></a></h4>
 <div class="line-block">
 <div class="line">INCAR</div>
 </div>
@@ -388,8 +392,9 @@ Gamma
 </pre></div>
 </div>
 </section>
-<section id="id9">
-<h3>能带计算<a class="headerlink" href="#id9" title="永久链接至标题"></a></h3>
+<section id="id8">
+<h4>能带计算<a class="headerlink" href="#id8" title="永久链接至标题"></a></h4>
+</section>
 </section>
 </section>
 </section>
@@ -399,7 +404,7 @@ Gamma
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../../tutorial.html" class="btn btn-neutral float-left" title="Tutorials" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="../pymatgen/basic.html" class="btn btn-neutral float-right" title="Basic Module" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="formation_energy.html" class="btn btn-neutral float-right" title="Formation Energy Calculation" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
