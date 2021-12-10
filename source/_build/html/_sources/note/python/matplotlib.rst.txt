@@ -25,3 +25,25 @@ Matplotlib
     figsize 画布尺寸，单位为英寸
     
     plt.gca() 获得当前的Axes对象ax
+
+* Matplotlib画图通用设置参数
+
+.. code-block:: Python
+
+    import matplotlib.pyplot as plt
+    from matplotlib.ticker import MultipleLocator
+
+    plt.rcParams['text.usetex'] = True
+
+    plt.rcParams['font.size'] = 18
+    plt.rcParams['font.family'] = "Times New Roman"
+    tdir = 'in'
+    major = 5.0
+    minor = 3.0
+    plt.rcParams['xtick.direction'] = tdir
+    plt.rcParams['ytick.direction'] = tdir
+    plt.rcParams['xtick.major.size'] = major
+    plt.rcParams['xtick.minor.size'] = minor
+    plt.rcParams['ytick.major.size'] = major
+    plt.rcParams['ytick.minor.size'] = minor
+
