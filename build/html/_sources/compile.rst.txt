@@ -70,3 +70,13 @@ Compile BerkeleyGW-3.0.1 using Intel Parallel Studio Xe 2020_update4
     :maxdepth: 2
 
     ./compile/BerkeleyGW_3.0.1
+
+CP2K
+####
+
+Compile CP2K-8.2 using Intel Parallel Studio Xe 2020_update4
+
+.. toctree::
+    :maxdepth: 2
+
+    ./compile/cp2k_8.2

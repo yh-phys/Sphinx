@@ -23,8 +23,8 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
-    <link rel="next" title="Download and Install" href="yambo_5.0.2.html" />
-    <link rel="prev" title="Download and Install" href="Quantum-ESPRESSO_6.7.html" /> 
+    <link rel="next" title="Tutorials" href="../tutorial.html" />
+    <link rel="prev" title="Download and Install" href="BerkeleyGW_3.0.1.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -52,17 +52,18 @@
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#libxc">libxc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#hdf5">hdf5</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#quantum-espresso">Quantum-ESPRESSO</a></li>
-<li class="toctree-l2 current"><a class="reference internal" href="../compile.html#abinit">ABINIT</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">Download and Install</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#download">Download</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#compile">Compile</a></li>
-</ul>
-</li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../compile.html#abinit">ABINIT</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#yambo">Yambo</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../compile.html#berkeleygw">BerkeleyGW</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../compile.html#cp2k">CP2K</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="../compile.html#cp2k">CP2K</a><ul class="current">
+<li class="toctree-l3 current"><a class="current reference internal" href="#">Download and Install</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#download">Download</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id3">前言</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id6">编译</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../tutorial.html">Tutorials</a></li>
@@ -87,7 +88,7 @@
           <li><a href="../compile.html">Installation</a> &raquo;</li>
       <li>Download and Install</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../_sources/compile/abinit_9.4.2.rst.txt" rel="nofollow"> 查看页面源码</a>
+            <a href="../_sources/compile/cp2k_8.2.rst.txt" rel="nofollow"> 查看页面源码</a>
       </li>
   </ul>
   <hr/>
@@ -99,23 +100,26 @@
 <h1>Download and Install<a class="headerlink" href="#download-and-install" title="永久链接至标题"></a></h1>
 <section id="download">
 <h2>Download<a class="headerlink" href="#download" title="永久链接至标题"></a></h2>
-<ol class="arabic simple">
-<li><p>Download <a class="reference download external" download="" href="https://www.abinit.org/sites/default/files/packages/abinit-9.4.2.tar.gz"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">9.4.2</span></code></a> of abinit.</p></li>
-</ol>
-<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://www.abinit.org/sites/default/files/packages/abinit-9.4.2.tar.gz
+<ul class="simple">
+<li><p>Download <a class="reference download external" download="" href="https://github.com/cp2k/cp2k/releases/download/v8.2.0/cp2k-8.2.tar.bz2"><code class="xref download docutils literal notranslate"><span class="pre">version</span> <span class="pre">8.2</span></code></a> of CP2K.</p></li>
+</ul>
+<div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>wget https://github.com/cp2k/cp2k/releases/download/v8.2.0/cp2k-8.2.tar.bz2
 </pre></div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">小技巧</p>
-<p>One should also download the recommended ABINIT Fallbacks</p>
+<p>由于CP2K需要较多的依赖包，如果集群可以联网，则在编译过程中可以直接自动下载，否则需要提前下载好对应版本的依赖项安装包，安装包的版本可以在cp2k-8.2/tools/toolchain/scripts/文件夹下对应的install_*.sh文件中找到，下载好后放入 <a href="#id1"><span class="problematic" id="id2">**</span></a>cp2k-8.2/tools/toolchain/build**文件夹中后打包上传即可。</p>
 </div>
-<ol class="arabic simple">
-<li><p>Download <a class="reference download external" download="" href="https://www.abinit.org/fallbacks"><code class="xref download docutils literal notranslate"><span class="pre">Fallbacks</span></code></a> of abinit-9.4.2</p></li>
-</ol>
+<ul class="simple">
+<li><p>依赖项安装包下载地址 <a class="reference download external" download="" href="https://www.cp2k.org/static/downloads/"><code class="xref download docutils literal notranslate"><span class="pre">依赖包</span></code></a></p></li>
+</ul>
 </section>
-<section id="compile">
-<h2>Compile<a class="headerlink" href="#compile" title="永久链接至标题"></a></h2>
-<p>Before compile abinit package, one should create a installation direction and copy the abinit and wannier90 to this direction. Next, one should build a tarballs by following command.</p>
+<section id="id3">
+<h2>前言<a class="headerlink" href="#id3" title="永久链接至标题"></a></h2>
+<p>CP2K是公认的编译难度较大的计算软件之一，清华大学刘锦程博士已经写了非常详细的 <a class="reference external" href="http://bbs.keinsci.com/thread-19009-1-1.html">编译教程</a> 和 <a class="reference external" href="https://www.bilibili.com/video/BV1Y54y1e7Yx?from=search&amp;seid=18152203032105405918&amp;spm_id_from=333.337.0.0">视频</a>，这里主要记录我根据刘博士的安装教程自己在服务器上安装的过程以及遇到的问题。</p>
+</section>
+<section id="id6">
+<h2>编译<a class="headerlink" href="#id6" title="永久链接至标题"></a></h2>
 <div class="highlight-Bash notranslate"><div class="highlight"><pre><span></span>mkdir -p ~/.abinit/tarballs
 </pre></div>
 </div>
@@ -210,8 +214,8 @@ make install
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="Quantum-ESPRESSO_6.7.html" class="btn btn-neutral float-left" title="Download and Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
-        <a href="yambo_5.0.2.html" class="btn btn-neutral float-right" title="Download and Install" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="BerkeleyGW_3.0.1.html" class="btn btn-neutral float-left" title="Download and Install" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> 上一页</a>
+        <a href="../tutorial.html" class="btn btn-neutral float-right" title="Tutorials" accesskey="n" rel="next">下一页 <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

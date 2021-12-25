@@ -1,0 +1,115 @@
+Download and Install
+====================
+
+Download
+########
+
+* Download :download:`version 8.2 <https://github.com/cp2k/cp2k/releases/download/v8.2.0/cp2k-8.2.tar.bz2>` of CP2K.
+
+.. code-block:: Bash
+
+    wget https://github.com/cp2k/cp2k/releases/download/v8.2.0/cp2k-8.2.tar.bz2
+
+.. tip ::
+    由于CP2K需要较多的依赖包，如果集群可以联网，则在编译过程中可以直接自动下载，否则需要提前下载好对应版本的依赖项安装包，安装包的版本可以在cp2k-8.2/tools/toolchain/scripts/文件夹下对应的install_*.sh文件中找到，下载好后放入 **cp2k-8.2/tools/toolchain/build**文件夹中后打包上传即可。
+
+* 依赖项安装包下载地址 :download:`依赖包 <https://www.cp2k.org/static/downloads/>`
+
+前言
+####
+
+CP2K是公认的编译难度较大的计算软件之一，清华大学刘锦程博士已经写了非常详细的 `编译教程 <http://bbs.keinsci.com/thread-19009-1-1.html>`_ 和 `视频 <https://www.bilibili.com/video/BV1Y54y1e7Yx?from=search&seid=18152203032105405918&spm_id_from=333.337.0.0>`_，这里主要记录我根据刘博士的安装教程自己在服务器上安装的过程以及遇到的问题。
+
+编译
+####
+
+.. code-block:: Bash
+
+    mkdir -p ~/.abinit/tarballs
+ 
+Move the packages of above download (exclude wannier90) to tarballs.
+
+Compile wannier90
+-----------------
+
+1. Unpack and configure wannier90. This can be done by copy/pasting the following lines:
+
+.. code-block:: Bash
+
+    tar zxvf wannier90-2.0.1.1.tar.gz && \
+    cd wannier90-2.0.1.1 && \
+    ./configure FC=mpiifort CC=mpiicc \
+        prefix=/opt/software/wannier90-2.0.1.1/build/ && \
+    make && \
+    make install
+
+Compile abinit
+--------------
+
+1. Create configure file compile.sh
+
+.. code-block:: Bash
+
+    ./configure FC=mpiifort CC=mpiicc \
+        --prefix=/opt/software/abinit-9.4.2/build \
+        --enable-mpi-io=yes \
+        --with-mpi=/opt/intel/impi/2019.9.304/intel64 \
+        --enable-mpi-inplace=yes \
+        --enable-openmp=yes \
+        --enable-bse-unpacked=yes \
+        --enable-gw-dpc=yes \
+        --with-wannier90=/opt/software/wannier90-2.0.1.1/build
+
+2. configure abinit
+
+.. code-block:: Bash
+
+    bash compile.sh
+
+3. compile fallbacks by following commands
+
+.. code-block:: Bash
+
+    cd fallbacks && bash build-abinit-fallbacks.sh
+
+4. edit the compile.sh
+
+.. code-block:: Bash
+
+    ./configure FC=mpiifort CC=mpiicc \
+    --prefix=/opt/software/abinit-9.4.2/build \
+    --enable-mpi-io=yes \
+    --with-mpi=/opt/intel/impi/2019.9.304/intel64 \
+    --enable-mpi-inplace=yes \
+    --enable-openmp=yes \
+    --enable-bse-unpacked=yes \
+    --enable-gw-dpc=yes \
+    --with-wannier90=/opt/software/wannier90-2.0.1.1/build \
+    with_libxc=/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/libxc/4.3.4 \
+    with_hdf5=/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/hdf5/1.10.6 \
+    with_netcdf=/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/netcdf4/4.6.3 \
+    with_netcdf_fortran=/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/netcdf4_fortran/4.5.2 \
+    with_xmlf90=/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/xmlf90/1.5.3.1 \
+    with_libpsml=/opt/software/abinit-9.4.2/fallbacks/install_fb/intel/19.1/libpsml/1.1.7
+
+5. configure abinit
+
+.. code-block:: Bash
+
+    bash compile.sh
+
+6. compile abinit
+
+.. code-block:: Bash
+
+    make -j<n> && make install
+
+7. test abinit
+
+.. code-block:: Bash
+
+    ./runtests.py v1 -j4
+
+The test results are as follows.
+
+.. image:: ../fig_compile/abinit_test_v1.png
